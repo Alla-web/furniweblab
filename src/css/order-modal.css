@@ -1,3 +1,136 @@
 .order-modal {
   display: none;
 }
+
+.order-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  justify-content: center;
+
+  z-index: 999;
+  padding: 64px 20px;
+  font-family: "Raleway", sans-serif;
+  
+}
+
+.modal {
+  background: #fff;
+ border-radius: 8px;
+padding: 64px 20px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+  width: 375px;
+ max-height: 703px;
+}
+
+.modal-title {
+  margin-bottom: 48px;
+  font-weight: 700;
+font-size: 36px;
+line-height: 1.2;
+letter-spacing: 0.01em;
+text-align: center;
+color: #080c09;
+  text-align: center;
+  margin-top: 0;
+}
+
+/* --- Кнопка закриття --- */
+.modal-close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+.modal-form label {
+  display: block;
+  margin-bottom: 24px;
+  font-weight: 400;
+font-size: 16px; 
+line-height: 1.6;
+color: #080c09;
+}
+
+.modal-form input,
+.modal-form textarea {
+border-radius: 12px;
+min-width: 271px;
+margin-top: 8px;
+border: 1px solid rgba(8, 12, 9, 0.15);
+font-weight: 400;
+font-size: 16px;
+line-height: 1.6;
+color: rgba(8, 12, 9, 0.6);
+  resize: none;
+  background: rgba(8, 12, 9, 0.05);
+}
+
+.modal-form input{
+padding: 8px 12px ;
+}
+
+.modal-form textarea{
+
+height: 180px;
+padding: 12px;
+}
+
+.modal-form input:focus,
+.modal-form input:hover {
+  border: 1px solid rgba(8, 12, 9, 0.4);
+}
+
+.modal-form textarea:focus,
+.modal-form textarea:hover {
+  border: 1px solid rgba(8, 12, 9, 0.15);
+}
+
+.submit-btn {
+  width: 100%;
+  border-radius: 100px;
+padding: 10px 24px;
+width: 295px;
+height: 46px;
+box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+background: #6b0609;
+  cursor: pointer;
+  font-weight: 500;
+font-size: 16px; 
+line-height: 1.6;
+color: #fff;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+background: #6b0609;
+opacity: 0.5;
+}
+.submit-btn:focus {
+ box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+background: #6b0609;
+opacity: 0.5;
+}
+.submit-btn:active {
+ background: rgba(8, 12, 9, 0.05);
+}
+
+/* --- Анімація --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
