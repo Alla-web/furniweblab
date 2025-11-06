@@ -1,1 +1,1 @@
-console.log('popular-products');
+
