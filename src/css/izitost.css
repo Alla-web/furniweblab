@@ -1,0 +1,30 @@
+.iziToast .iziToast-texts {
+  margin-left: 0 !important;
+}
+
+/* фіксуємо ширину всіх тостів */
+.iziToast {
+  width: 370px !important;
+  max-width: none !important; /* щоб не обмежувалося maxWidth */
+}
+
+.iziToast-wrapper {
+  width: 100% !important; /* інколи потрібно для точного центрування */
+}
+
+.iziToast .iziToast-message {
+  text-align: left !important;
+}
+
+.iziToast .iziToast-icon {
+  filter: brightness(0) invert(1); /* стане білою */
+}
+
+.iziToast,
+.iziToast .iziToast-message,
+.iziToast .iziToast-title {
+  font-family: 'Raleway', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important; /* якщо треба жирніше */
+}
