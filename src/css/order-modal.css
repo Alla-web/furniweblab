@@ -1,9 +1,4 @@
 
-
-.order-modal {
-  display: flex !important;
-}
-
 .order-modal {
   display: none;
   position: fixed;
