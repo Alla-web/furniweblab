@@ -103,7 +103,7 @@ function renderFurnitureList(furnitureList) {
                   furniItem.color[2]
                 }; color: transparent;">1</li>
             </ul>
-            <p class="">${furniItem.price.toLocaleString()}</p>
+            <p class="">${furniItem.price.toLocaleString()} грн</p>
             <button class="button load-more-furni-button">Детальніше</button>
         </li>
     `
