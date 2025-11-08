@@ -90,7 +90,7 @@ function renderFurnitureList(furnitureList) {
     .sort((a, b) => a.price - b.price)
     .map(
       furniItem => `
-        <li data-id="${furniItem._id}">
+        <li>
             <img class="card-image" src="${furniItem.images[0]}" alt="${
         furniItem.name
       }"/>
@@ -101,14 +101,16 @@ function renderFurnitureList(furnitureList) {
                     color => `
                     <li
                     class="card-color-item"
-                    style="background-color: ${color}; color: transparent; border: 0.5px solid #d2d0d0;">1
+                    style="background-color: ${color};">1
                     </li>
                     `
                   )
                   .join('')}               
             </ul>
             <p class="card-price">${furniItem.price.toLocaleString()} грн</p>
-            <button class="details-button button">Детальніше</button>
+            <button 
+                class="details-button button" 
+                data-id="${furniItem._id}">Детальніше</button>
         </li>
     `
     )

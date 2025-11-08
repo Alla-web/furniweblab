@@ -226,6 +226,14 @@
   border-radius: 50%;
 
   margin-bottom: 8px;
+
+  color: transparent;
+
+  border: 0.5px solid #d2d0d0;
+
+  /* box-shadow: 1px 1px 1px 1px rgba(182, 178, 178, 0.25); */
+
+  box-shadow: 0 0 4px 2px rgba(134, 132, 132, 0.25);
 }
 
 .card-price {
