@@ -18,7 +18,7 @@
     <script type="module" crossorigin src="/furniweblab/index.js"></script>
     <link rel="modulepreload" crossorigin href="/furniweblab/assets/vendor-CLTxG5yw.js">
     <link rel="stylesheet" crossorigin href="/furniweblab/assets/vendor-DnveWo0P.css">
-    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-BwrFbEBc.css">
+    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-BswE_svZ.css">
   </head>
   <body>
     <header class="header">
@@ -131,9 +131,33 @@
   <div></div>
 </section>
 
-      <section class="order-modal">
-  <div></div>
-</section>
+      <section id="order-modal" class="order-modal">
+    <div class="modal">
+      <button type="button" id="closeModalBtn" class="modal-close"><svg class="modal-icon" width="14" height="14">
+    <use href="//src/img/sprite.svg#x"></use>
+  </svg></button>
+      <h2 class="modal-title">Замовити</h2>
+
+      <form id="callback-form" class="modal-form">
+        <label>
+          Ім’я*
+          <input type="text" name="name" id="name" placeholder="Дмитро"  />
+        </label>
+
+        <label>
+          Телефон*
+          <input type="tel" name="phone" id="phone" placeholder="38 099 123 22 11"/>
+        </label>
+
+        <label>
+          Коментар
+          <textarea name="comment" id="comment" placeholder="Введіть ваш коментар"></textarea>
+        </label>
+
+        <button type="submit" class="submit-btn">Надіслати заявку</button>
+      </form>
+    </div>
+  </section>
 
     </main>
 
