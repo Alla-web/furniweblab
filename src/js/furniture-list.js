@@ -104,7 +104,7 @@ function renderFurnitureList(furnitureList) {
                 }; color: transparent;">1</li>
             </ul>
             <p class="">${furniItem.price.toLocaleString()}</p>
-            <button class="button">Детальніше</button>
+            <button class="button load-more-furni-button">Детальніше</button>
         </li>
     `
     )
