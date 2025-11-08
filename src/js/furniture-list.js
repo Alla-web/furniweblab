@@ -69,7 +69,6 @@ async function onCategoryClick(event) {
         // sortDirect: asc,
       },
     });
-    console.log(categoryItems);
 
     furnitureListContainer.innerHTML = renderFurnitureList(
       categoryItems.furnitures
@@ -94,12 +93,18 @@ function renderFurnitureList(furnitureList) {
             <img class="" src="${furniItem.images[0]}" alt="${furniItem.name}"/>
             <h3 class="">${furniItem.name}</h3>
             <ul class="">
-                <li class="" style="color: ${furniItem.color[0]};"></li>
-                <li class="" style="color: ${furniItem.color[1]};"></li>
-                <li class="" style="color: ${furniItem.color[2]};"></li>
+                <li class="" style="background-color: ${
+                  furniItem.color[0]
+                }; color: transparent;">1</li>
+                <li class="" style="background-color: ${
+                  furniItem.color[1]
+                }; color: transparent;">1</li>
+                <li class="" style="cobackground-color: ${
+                  furniItem.color[2]
+                }; color: transparent;">1</li>
             </ul>
-            <p class="">${furniItem.price.toLocaleString()}</p>
-            <button class="button">Детальніше</button>
+            <p class="">${furniItem.price.toLocaleString()} грн</p>
+            <button class="button load-more-furni-button">Детальніше</button>
         </li>
     `
     )
