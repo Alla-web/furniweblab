@@ -16,10 +16,10 @@ feedbacksList.innerHTML = `
   
       <div class="swiper-nav-btn">
         <button class="general-btn custom-prev"><svg class="" width="14" height="14">
-        <use href="../img/icons.svg#icon-arrow-left"></use>
+        <use href="./img/sprite.svg#icon-arrow-left"></use>
         </svg></button>
         <button class="general-btn custom-next"><svg class="" width="14" height="14">
-        <use href="../img/icons.svg#icon-arrow-right"></use>
+        <use href="./img/sprite.svg#icon-arrow-right"></use>
         </svg></button>
       </div>
     </div>
@@ -43,13 +43,13 @@ function createStars(rating) {
   let starsHTML = '';
 
   for (let i = 0; i < fullStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-full"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-full"></use></svg>`;
   }
   if (halfStar) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-half"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-half"></use></svg>`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-empty"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-empty"></use></svg>`;
   }
 
   return starsHTML;
@@ -87,7 +87,7 @@ getFeedbacks().then(data => {
   const swiper = new Swiper('.swiper', {
     loop: true,
     slidesPerView: 1,
-    spaceBetween: 8,
+    spaceBetween: 20,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -98,6 +98,11 @@ getFeedbacks().then(data => {
       prevEl: '.custom-prev',
       nextEl: '.custom-next',
     },
+    breakpoints: {
+      768: {
+      slidesPerView: 2, // показываем сразу 2 слайда
+      spaceBetween: 20, // расстояние между ними
+    }},
   });
 
   // const prevBtn = document.querySelector('.custom-prev');

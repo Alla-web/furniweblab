@@ -86,6 +86,9 @@
 
 }
 
+button svg {
+  pointer-events: none;
+}
 
 .swiper-buttons {
   display: flex;
@@ -104,4 +107,11 @@
   width: 20px;
   height: 20px;
   display: inline-block;
+}
+
+@media screen and (min-width: 768px) {
+  .feedbacks-container {
+  margin: 0;
+  padding: 32px;
+}
 }

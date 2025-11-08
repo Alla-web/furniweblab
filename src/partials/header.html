@@ -1,3 +1,32 @@
 <header class="header">
-  <div class="container"></div>
+  <div class="container header__container">
+    <a href="#hero" class="logo" aria-label="Меблерія">
+      <!-- SVG лого -->
+      <svg class="logo__icon" width="32" height="32" aria-hidden="true"></svg>
+      <span class="logo__text">Меблерія</span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="#furniture" class="nav__link">Наші меблі</a></li>
+        <li><a href="#about" class="nav__link">Про нас</a></li>
+        <li><a href="#faq" class="nav__link">Часті питання</a></li>
+        <li><a href="#reviews" class="nav__link">Відгуки</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="#shop" class="nav__btn">До покупок</a>
+      </div>
+    </nav>
+    <div class="header__actions">
+      <a href="#shop" class="nav__btn nav__btn--desktop">До покупок</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Меню">
+      <!-- SVG бургер -->
+      <svg class="burger__icon burger__icon--menu" width="24" height="24" aria-hidden="true"></svg>
+      <!-- SVG хрестик -->
+      <svg class="burger__icon burger__icon--close" width="24" height="24" aria-hidden="true"></svg>
+    </button>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
 </header>

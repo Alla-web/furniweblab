@@ -1,2 +1,270 @@
 .header {
+    background-color: #fff;
+    position: relative;
+    z-index: 1000;
+}
+
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Лого */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+    font-size: 20px;
+    gap: 8px;
+}
+
+.logo__icon {
+    display: inline-block;
+}
+
+/* Навігація */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: #2b2b2b;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav__link:hover {
+    color: #7a7a7a;
+}
+
+/* Кнопка */
+.nav__btn {
+    background-color: #7d0d0d;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.nav__btn:hover {
+    background-color: #590a0a;
+}
+
+/* Додаткові зони */
+.header__actions {
+    display: flex;
+    align-items: center;
+}
+
+.nav__actions {
+    display: none;
+}
+
+/* Бургер */
+.burger {
+    display: none;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.burger__icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.burger__icon--close {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.burger.active .burger__icon--menu {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.burger.active .burger__icon--close {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+/* --- Адаптація --- */
+
+/* Tablet & Mobile */
+@media (max-width: 1023px) {
+    .burger {
+        display: block;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s;
+        z-index: 1050;
+        gap: 32px;
+    }
+
+    .nav.active {
+        right: 0;
+    }
+
+    .nav__list {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .header__actions {
+        display: none;
+    }
+
+    .nav__actions {
+        display: flex;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+}
+
+/* Mobile (320–375px гумовий) */
+@media (max-width: 375px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .logo__text {
+        font-size: 18px;
+    }
+
+    .nav__btn {
+        width: 180px;
+        text-align: center;
+    }
+}
+
+/* --- Адаптація --- */
+
+/* Tablet (768px – 1023px) */
+@media (max-width: 1023px) {
+    .burger {
+        display: block;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 344px;
+        background-color: #fff;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-end;
+        /* вирівнювання по правому краю */
+        padding: 100px 32px 32px;
+        gap: 24px;
+        transition: right 0.3s ease;
+        z-index: 1050;
+    }
+
+    .nav.active {
+        right: 0;
+    }
+
+    .nav__list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 20px;
+    }
+
+    .header__actions {
+        display: none;
+    }
+
+    .nav__actions {
+        display: flex;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+}
+
+/* Mobile (до 767px): на весь екран + центр */
+@media (max-width: 767px) {
+    .nav {
+        width: 100%;
+        right: -100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        text-align: center;
+    }
+
+    .nav__list {
+        align-items: center;
+    }
+
+    .nav__actions {
+        margin-top: 24px;
+        justify-content: center;
+    }
+}
+
+/* Маленькі екрани (320–375px) */
+@media (max-width: 375px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .logo__text {
+        font-size: 18px;
+    }
+
+    .nav__btn {
+        width: 180px;
+        text-align: center;
+    }
 }
