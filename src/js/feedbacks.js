@@ -1,13 +1,9 @@
 import axios from 'axios';
-import Swiper from 'swiper';
-import 'swiper/css';
-import  Raty  from 'raty-js';
-import 'raty-js/src/raty.css';
-
-
-
-
-
+import Swiper from 'swiper/bundle';
+import 'swiper/swiper-bundle.css';
+// import '../css/feedbacks.css'
+// import 'swiper/css/pagination';
+// import 'swiper/css/navigation';
 
 const feedbacksList = document.querySelector('.feedbacks-list');
 
@@ -15,10 +11,18 @@ feedbacksList.innerHTML = `
   <div class="swiper">
     <div class="swiper-wrapper"></div>
 
-    <div class="swiper-pagination"></div>
-
-    <button class="general-btn custom-prev">BTN PREV</button>
-    <button class="general-btn custom-next">BTN NExt</button>
+    <div class="swiper-controls">
+      <div class="swiper-pagination"></div>
+  
+      <div class="swiper-nav-btn">
+        <button class="general-btn custom-prev"><svg class="" width="14" height="14">
+        <use href="../img/icons.svg#icon-arrow-left"></use>
+        </svg></button>
+        <button class="general-btn custom-next"><svg class="" width="14" height="14">
+        <use href="../img/icons.svg#icon-arrow-right"></use>
+        </svg></button>
+      </div>
+    </div>
 
   </div>
 `;
@@ -29,6 +33,26 @@ export function roundRating(value) {
   if (value >= 3.3 && value <= 3.7) return 3.5;
   if (value >= 3.8 && value <= 4.2) return 4;
   return Math.round(value * 10) / 10;
+}
+
+function createStars(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStar;
+
+  let starsHTML = '';
+
+  for (let i = 0; i < fullStars; i++) {
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-full"></use></svg>`;
+  }
+  if (halfStar) {
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-half"></use></svg>`;
+  }
+  for (let i = 0; i < emptyStars; i++) {
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/icons.svg#icon-star-empty"></use></svg>`;
+  }
+
+  return starsHTML;
 }
 
 export async function getFeedbacks() {
@@ -51,7 +75,7 @@ getFeedbacks().then(data => {
     const slide = `
       <div class="swiper-slide">
         <div class="feedback-card">
-          <div class="stars" data-score="${feedback.rate}">${roundedRate}</div>
+          <div class="stars">${createStars(roundedRate)}</div>
           <p class="swiper-text">“${feedback.descr}”</p>
           <p class="swiper-text-name">${feedback.name}</p>
         </div>
@@ -59,40 +83,30 @@ getFeedbacks().then(data => {
     `;
     wrapper.insertAdjacentHTML('beforeend', slide);
   });
-
-  document.querySelectorAll('.stars').forEach(el => {
-    const score = parseFloat(el.dataset.score);
-    new Raty(el, {
-      readOnly: true,
-      score: score,
-      
-      halfShow: true,
-      precision: true,
-      path: 'https://cdnjs.cloudflare.com/ajax/libs/raty-js/2.8.0/images',
-    });
-  });
-  
-  
+  console.log(document.querySelector('.swiper-pagination'));
   const swiper = new Swiper('.swiper', {
     loop: true,
     slidesPerView: 1,
-    spaceBetween:20,
+    spaceBetween: 8,
     pagination: {
-      el: ".swiper-pagination",
+      el: '.swiper-pagination',
       clickable: true,
+      type: 'bullets',
+      
     },
-  })
+    navigation: {
+      prevEl: '.custom-prev',
+      nextEl: '.custom-next',
+    },
+  });
 
-  const prevBtn = document.querySelector(".custom-prev");
-  const nextBtn = document.querySelector(".custom-next");
+  // const prevBtn = document.querySelector('.custom-prev');
+  // const nextBtn = document.querySelector('.custom-next');
 
-  prevBtn.addEventListener("click", () => {
-    swiper.slidePrev();
-  })
-  nextBtn.addEventListener("click", () => {
-    swiper.slideNext();
-  })
-
-
+  // prevBtn.addEventListener('click', () => {
+  //   swiper.slidePrev();
+  // });
+  // nextBtn.addEventListener('click', () => {
+  //   swiper.slideNext();
+  // });
 });
-

@@ -1,3 +1,5 @@
+
+
 .feedbacks-section {
 }
 .feedbacks-container {
@@ -6,7 +8,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 24px;
+  margin-bottom: 80px;
 }
 .feedbacks-title {
   font-weight: 700;
@@ -14,6 +16,7 @@
   line-height: 1.2;
   letter-spacing: 0.01em;
   color: #080c09;
+  margin-bottom: 24px;
 }
 .feedbacks-text {
   font-weight: 400;
@@ -25,23 +28,80 @@
 
 .feedbacks-list {
   width: 100%;
-  max-width: 375px; 
+  max-width: 375px;
   margin: 0 auto;
 }
 
+.swiper-text {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #080c09;
+}
+
+.swiper-text-name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #080c09;
+}
+
 .general-btn {
-  order: 1px solid #F2F2F2;
-border-radius: 100px;
-padding: 12px;
-width: 48px;
-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid #f2f2f2;
+  border-radius: 100px;
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+}
+
+.swiper-nav-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.feedback-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
 }
 
 
 
+.swiper-controls {
+  
+}
+
+.swiper-pagination {
+  
+
+}
 
 
+.swiper-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 8px;
+}
 
+.stars {
+  display: flex;
+  gap: 4px;
+}
 
-
-
+.star {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
