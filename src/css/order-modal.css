@@ -1,4 +1,3 @@
-
 .order-modal {
   display: none;
   position: fixed;
@@ -7,56 +6,59 @@
   justify-content: center;
   z-index: 999;
   padding: 64px 20px;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   align-items: center;
 }
 
 .modal {
   background: #fff;
- border-radius: 8px;
-padding: 64px 20px;
+  border-radius: 8px;
+  padding: 64px 20px;
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
   width: 335px;
- max-height: 703px;
+  max-height: 703px;
 }
 
 .modal-title {
   margin-bottom: 48px;
   font-weight: 700;
-font-size: 36px;
-line-height: 1.2;
-letter-spacing: 0.01em;
-text-align: center;
-color: #080c09;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #080c09;
   text-align: center;
   margin-top: 0;
 }
 
-/* --- Кнопка закриття --- */
 .modal-close {
   position: absolute;
   right: 16px;
   top: 16px;
   background: none;
   border: none;
-  font-size: 18px;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 
+.modal-icon {
+  fill: #080c09;
+}
 
 .modal-form label {
   display: block;
   margin-bottom: 24px;
   font-weight: 400;
-font-size: 16px; 
-line-height: 1.6;
-color: #080c09;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #080c09;
 }
 
 .input-error-text {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.6;
@@ -65,34 +67,32 @@ color: #080c09;
 
 .modal-form input,
 .modal-form textarea {
-border-radius: 12px;
-min-width: 295px;
-margin-top: 8px;
-border: 1px solid rgba(8, 12, 9, 0.15);
-font-weight: 400;
-font-size: 16px;
-line-height: 1.6;
-color: rgba(8, 12, 9, 0.6);
+  border-radius: 12px;
+  min-width: 295px;
+  margin-top: 8px;
+  border: 1px solid rgba(8, 12, 9, 0.15);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(8, 12, 9, 0.6);
   resize: none;
   background: rgba(8, 12, 9, 0.05);
   display: block;
 }
 
-.modal-form input{
-padding: 8px 12px ;
+.modal-form input {
+  padding: 8px 12px;
 }
 
-.modal-form textarea{
-
-height: 180px;
-padding: 12px;
+.modal-form textarea {
+  height: 180px;
+  padding: 12px;
 }
 
 .modal-form input:hover,
-.modal-form textarea:hover{
-border: 1px solid rgba(8, 12, 9, 0.15);
+.modal-form textarea:hover {
+  border: 1px solid rgba(8, 12, 9, 0.15);
 }
-
 
 .modal-form input:hover::placeholder,
 .modal-form textarea:hover::placeholder {
@@ -100,9 +100,9 @@ border: 1px solid rgba(8, 12, 9, 0.15);
 }
 
 .modal-form textarea:focus,
- .modal-form input:focus{
- border: 1px solid rgba(8, 12, 9, 0.4);
- outline: none;
+.modal-form input:focus {
+  border: 1px solid rgba(8, 12, 9, 0.4);
+  outline: none;
 }
 
 .modal-form input:focus::placeholder,
@@ -113,35 +113,44 @@ border: 1px solid rgba(8, 12, 9, 0.15);
 .submit-btn {
   width: 100%;
   border-radius: 100px;
-padding: 10px 24px;
-width: 295px;
-height: 46px;
-box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-background: #6b0609;
+  padding: 10px 24px;
+  width: 295px;
+  height: 46px;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background: #6b0609;
   cursor: pointer;
   font-weight: 500;
-font-size: 16px; 
-line-height: 1.6;
-color: #fff;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff;
   transition: all 0.2s ease;
   align-items: center;
   justify-content: center;
-display: block;
+  display: block;
   margin: 0 auto;
 }
 
 .submit-btn:hover {
-box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-background: #6b0609;
-opacity: 0.5;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background: #6b0609;
+  opacity: 0.5;
 }
 .submit-btn:focus {
- box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05), inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15), inset 0 2px 1px 0 rgba(255, 255, 255, 0.25), inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
-background: #6b0609;
-opacity: 0.5;
+  box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+  background: #6b0609;
+  opacity: 0.5;
 }
 .submit-btn:active {
- background: rgba(8, 12, 9, 0.05);
+  background: rgba(8, 12, 9, 0.05);
 }
 
 @keyframes fadeIn {
@@ -155,42 +164,41 @@ opacity: 0.5;
   }
 }
 
-@media screen and (min-width:768px){
- .order-modal{
-  padding: 64px 32px;
- }
- 
-  .modal{
+@media screen and (min-width: 768px) {
+  .order-modal {
+    padding: 64px 32px;
+  }
+
+  .modal {
     width: 704px;
     max-height: 671px;
     padding: 64px 32px 32px 32px;
   }
 
-.modal-form input,
-.modal-form textarea{
-  min-width: 640px;
+  .modal-form input,
+  .modal-form textarea {
+    min-width: 640px;
+  }
 }
 
-}
+@media screen and (min-width: 1440px) {
+  .order-modal {
+    padding: 64px 287px;
+  }
 
-@media screen and (min-width:1440px){
-.order-modal{
-  padding: 64px 287px;
- }
-
-  .modal{
+  .modal {
     width: 866px;
     max-height: 718px;
     padding: 64px;
   }
 
-  .modal-title{
+  .modal-title {
     font-weight: 700;
-font-size: 48px;
+    font-size: 48px;
   }
 
   .modal-form input,
-.modal-form textarea{
-  min-width: 738px;
-}
+  .modal-form textarea {
+    min-width: 738px;
+  }
 }
