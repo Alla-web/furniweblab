@@ -87,24 +87,28 @@ async function onCategoryClick(event) {
 
 function renderFurnitureList(furnitureList) {
   return furnitureList
+    .sort((a, b) => a.price - b.price)
     .map(
       furniItem => `
         <li data-id="${furniItem._id}">
-            <img class="" src="${furniItem.images[0]}" alt="${furniItem.name}"/>
-            <h3 class="">${furniItem.name}</h3>
-            <ul class="">
-                <li class="" style="background-color: ${
-                  furniItem.color[0]
-                }; color: transparent;">1</li>
-                <li class="" style="background-color: ${
-                  furniItem.color[1]
-                }; color: transparent;">1</li>
-                <li class="" style="cobackground-color: ${
-                  furniItem.color[2]
-                }; color: transparent;">1</li>
+            <img class="card-image" src="${furniItem.images[0]}" alt="${
+        furniItem.name
+      }"/>
+            <h3 class="card-title">${furniItem.name}</h3>
+            <ul class="card-color-container">
+                ${(furniItem.color || [])
+                  .map(
+                    color => `
+                    <li
+                    class="card-color-item"
+                    style="background-color: ${color}; color: transparent; border: 0.5px solid #d2d0d0;">1
+                    </li>
+                    `
+                  )
+                  .join('')}               
             </ul>
-            <p class="">${furniItem.price.toLocaleString()} грн</p>
-            <button class="button load-more-furni-button">Детальніше</button>
+            <p class="card-price">${furniItem.price.toLocaleString()} грн</p>
+            <button class="details-button button">Детальніше</button>
         </li>
     `
     )
