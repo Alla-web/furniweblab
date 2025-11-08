@@ -44,7 +44,7 @@
 .category-card {
   border-radius: 8px;
 
-  padding: 23px 16px;
+  padding: 23px 8px;
 
   display: flex;
   justify-content: center;
@@ -190,4 +190,60 @@
 
 .load-more-button {
   margin-top: 32px;
+}
+
+/* futniture-list */
+
+.futniture-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-image {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #080c09;
+
+  margin-bottom: 8px;
+}
+
+.card-color-container {
+  display: flex;
+  gap: 16px;
+}
+
+.card-color-item {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+
+  margin-bottom: 8px;
+}
+
+.card-price {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #080c09;
+
+  margin-bottom: 16px;
+}
+
+.details-button {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #080c09;
+  background-color: #e8e6e6;
+
+  box-shadow: 0 1px 3px 0 rgb(141, 141, 141),
+    inset 0 -2px 1px 0 rgb(227, 227, 227), inset 0 0 0 1px rgb(232, 232, 232);
 }
