@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector('.btn.btn-link');
-    const targetId = "feedbacks";
+    const targetId = "#feedbacks";
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
