@@ -8,13 +8,11 @@ const form = document.getElementById("callback-form");
 let productId = null;
 let color = null;
 
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".open-order-modal-btn");
-  if (!btn) return;
+document.body.addEventListener("open-order-modal", (e) => {
+  const { productId: id, selectedColor } = e.detail;
 
-
-  productId = btn.dataset.productId;
-  color = btn.dataset.marker;
+  productId = id;
+  color = selectedColor;
 
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
