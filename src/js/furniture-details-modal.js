@@ -178,3 +178,29 @@ modalCloseBtn.addEventListener('click', closeModal); // кнопка "Закри
 
 //  Чекаю подію 'open-details-modal' 
 document.body.addEventListener('open-details-modal', handleOpenDetailsModal);
+
+
+function onGlobalDetailsClick(event) {
+    const detailsButton = event.target.closest('.details-button');
+    
+    // моя кнопка з ID?
+    if (!detailsButton || !detailsButton.dataset.id) {
+        return;
+    }
+    
+    event.preventDefault(); 
+
+    const productId = detailsButton.dataset.id;
+    
+    // викликаю подію щоб відкрити модолку
+    const detailsEvent = new CustomEvent('open-details-modal', {
+        bubbles: true, 
+        detail: { 
+            productId: productId 
+        }
+    });
+
+    document.body.dispatchEvent(detailsEvent); 
+}
+
+document.body.addEventListener('click', onGlobalDetailsClick);
