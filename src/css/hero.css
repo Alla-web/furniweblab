@@ -10,10 +10,9 @@
 }
 
 .section-reset * {
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 .box-info{
-    height: 344px;
     padding-top: 136px;
     padding-bottom: 136px;
 }
@@ -114,15 +113,11 @@
         height: 396px;
         margin: 0;
      }
-    .hero-sect{
-        margin: 0;
-     }
 
     .box-info {
         width: 560px;
         height: auto;
         padding-top: 80px;
-        padding-left: 32px;
      }
 
     .hero-title {
@@ -141,14 +136,11 @@
         object-position: center 30%;
         background-position: top;
      }
-    .hero-sect{
-        margin: 0 auto;
-    }
 
     .box-info {
         width: 560px;
         height: auto;
-        padding: 92px 0 92px 44px;
+        padding: 92px 0;
         margin: 0;
 
      }
