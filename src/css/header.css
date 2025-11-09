@@ -201,7 +201,6 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-end;
-        /* вирівнювання по правому краю */
         padding: 100px 32px 32px;
         gap: 24px;
         transition: right 0.3s ease;

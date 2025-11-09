@@ -1,17 +1,18 @@
 <header class="header">
   <div class="container header__container">
-    <a href="#hero" class="logo" aria-label="Меблерія">
+    <a href="/index.html" class="logo" aria-label="Меблерія">
       <!-- SVG лого -->
-      <svg class="logo__icon" width="32" height="32" aria-hidden="true"></svg>
-      <span class="logo__text">Меблерія</span>
+      <svg class="logo__icon" width="163" height="70" aria-hidden="true">
+        <use href="/img/sprite.svg#logo"></use>
+      </svg>
     </a>
 
     <nav class="nav" id="nav">
       <ul class="nav__list">
-        <li><a href="#furniture" class="nav__link">Наші меблі</a></li>
-        <li><a href="#about" class="nav__link">Про нас</a></li>
-        <li><a href="#faq" class="nav__link">Часті питання</a></li>
-        <li><a href="#reviews" class="nav__link">Відгуки</a></li>
+        <li><a href="#furniture-list-section" class="nav__link">Наші меблі</a></li>
+        <li><a href="#about-us-section" class="nav__link">Про нас</a></li>
+        <li><a href="#faq-section" class="nav__link">Часті питання</a></li>
+        <li><a href="#feedbacks" class="nav__link">Відгуки</a></li>
       </ul>
       <div class="nav__actions">
         <a href="#shop" class="nav__btn">До покупок</a>
@@ -22,9 +23,13 @@
     </div>
     <button class="burger" id="burger" aria-label="Меню">
       <!-- SVG бургер -->
-      <svg class="burger__icon burger__icon--menu" width="24" height="24" aria-hidden="true"></svg>
+      <svg class="burger__icon burger__icon--menu" width="24" height="24" aria-hidden="true">
+        <use href="/img/sprite.svg#menu"></use>
+      </svg>
       <!-- SVG хрестик -->
-      <svg class="burger__icon burger__icon--close" width="24" height="24" aria-hidden="true"></svg>
+      <svg class="burger__icon burger__icon--close" width="24" height="24" aria-hidden="true">
+        <use href="/img/sprite.svg#x"></use>
+      </svg>
     </button>
   </div>
 
