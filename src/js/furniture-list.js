@@ -3,28 +3,64 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+//отримуємо список категорій:
+
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
+const STORAGE_KEY = 'pickedCategoryId';
+
+function showError(error) {
+  iziToast.error({
+    message: `${error.message ?? String(error)}`,
+    position: 'topCenter',
+    timeout: 3000,
+    backgroundColor: '#EF4040',
+    messageColor: 'white',
+    close: false,
+  });
+}
+
+function showInfo(info) {
+  iziToast.info({
+    message: `${info}`,
+    position: 'topCenter',
+    timeout: 3000,
+    backgroundColor: '#009b18',
+    messageColor: 'white',
+    close: false,
+  });
+}
+
+const loader = document.querySelector('.loading');
+
+function showLoader() {
+  loader.hidden = false;
+}
+
+function hideLoader() {
+  loader.hidden = true;
+}
+
+localStorage.removeItem(STORAGE_KEY);
+
+let itemsPage = 1;
+let totalItems = 0;
+let totalPages = 0;
+const limit = 8;
 
 async function fetchCategories() {
   try {
     const { data: categories } = await axios('/categories');
     return categories;
   } catch (error) {
-    iziToast.error({
-      message: `${error.message ?? String(error)}`,
-      position: 'topCenter',
-      timeout: 3000,
-      backgroundColor: '#EF4040',
-      messageColor: 'white',
-      close: false,
-    });
+    showError(error);
   }
 }
 
-//отримуємо список категорій
 fetchCategories();
 
 const categoriesBoxes = document.querySelectorAll('.category-card');
+
+//промальовуємо назви категорій:
 
 async function renderCategories(categoriesBoxes) {
   const categories = await fetchCategories();
@@ -39,17 +75,17 @@ async function renderCategories(categoriesBoxes) {
   });
 }
 
-//промальовуємо назви категорій
 renderCategories(categoriesBoxes);
 
-//ловимо клік по категорії
+//ловимо клік по категорії, грузимо товари з обраної категорії:
+
 const furnitureListContainer = document.querySelector('.futniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
 categoryContainer.addEventListener('click', onCategoryClick);
 
 async function onCategoryClick(event) {
-  event.preventDefault();
+  showLoader();
 
   const pickedCategoryCard = event.target.closest('.category-card');
 
@@ -57,31 +93,42 @@ async function onCategoryClick(event) {
     return;
   }
 
+  itemsPage = 1;
+  furnitureListContainer.innerHTML = '';
+
   const categoryId = pickedCategoryCard.dataset.id;
-  let itemsPage = 1;
+
+  if (categoryId === undefined || categoryId === null) {
+    localStorage.removeItem(STORAGE_KEY);
+  } else {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(categoryId));
+  }
 
   try {
-    const { data: categoryItems } = await axios(`/furnitures`, {
+    const { data } = await axios(`/furnitures`, {
       params: {
         page: itemsPage,
-        limit: 10,
+        limit,
         category: categoryId,
-        // sortDirect: asc,
       },
     });
 
-    furnitureListContainer.innerHTML = renderFurnitureList(
-      categoryItems.furnitures
-    );
+    totalItems = data.totalItems;
+    totalPages = Math.ceil(totalItems / limit);
+    itemsPage = data.page;
+
+    console.log('totalItems: ', totalItems);
+    console.log('limit: ', limit);
+    console.log('totalPages: ', totalPages);
+    console.log('itemsPage: ', itemsPage);
+
+    furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
+
+    loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+
+    hideLoader();
   } catch (error) {
-    iziToast.error({
-      message: `${error.message ?? String(error)}`,
-      position: 'topCenter',
-      timeout: 3000,
-      backgroundColor: '#EF4040',
-      messageColor: 'white',
-      close: false,
-    });
+    showError(error);
   }
 }
 
@@ -90,7 +137,7 @@ function renderFurnitureList(furnitureList) {
     .sort((a, b) => a.price - b.price)
     .map(
       furniItem => `
-        <li>
+        <li class="furniture-list-item">
             <img class="card-image" src="${furniItem.images[0]}" alt="${
         furniItem.name
       }"/>
@@ -115,4 +162,64 @@ function renderFurnitureList(furnitureList) {
     `
     )
     .join('');
+}
+
+// пагінація по натисканню на кнопку
+const loadMoreFurniBtn = document.querySelector('.load-more-button');
+
+loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
+
+async function onLoadMoreFfurniBtnClick(event) {
+  furnitureListContainer.insertAdjacentElement('beforeend', loader);
+  showLoader();
+
+  if (!furnitureListContainer.children.length) {
+    showInfo('Please, pick the furnirure category before');
+    return;
+  }
+
+  itemsPage++;
+  const categoryId = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+  try {
+    const { data } = await axios(`/furnitures`, {
+      params: {
+        page: itemsPage,
+        limit,
+        category: categoryId,
+      },
+    });
+
+    totalItems = data.totalItems;
+    totalPages = Math.ceil(totalItems / limit);
+    itemsPage = Number(data.page);
+
+    if (itemsPage < totalPages) {
+      furnitureListContainer.insertAdjacentHTML(
+        'beforeend',
+        renderFurnitureList(data.furnitures)
+      );
+      loadMoreFurniBtn.hidden = false;
+    } else {
+      showInfo('This categoty has not more furniture');
+      loadMoreFurniBtn.hidden = true;
+    }
+
+    const furniListItem = furnitureListContainer.querySelector(
+      '.furniture-list-item'
+    );
+    if (furniListItem) {
+      window.scrollBy({
+        left: 0,
+        top: furniListItem.getBoundingClientRect().height,
+        behavior: 'smooth',
+      });
+    }
+
+    hideLoader();
+  } catch (error) {
+    showError(error);
+  } finally {
+    console.log('Count of cards: ', furnitureListContainer.children.length);
+  }
 }

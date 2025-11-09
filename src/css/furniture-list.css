@@ -4,7 +4,7 @@
 
 .our-furniture {
   padding-top: 48px;
-  padding-bottom: 48px;
+  /* padding-bottom: 48px; */
 }
 
 .section-title {
@@ -254,4 +254,8 @@
 
   box-shadow: 0 1px 3px 0 rgb(141, 141, 141),
     inset 0 -2px 1px 0 rgb(227, 227, 227), inset 0 0 0 1px rgb(232, 232, 232);
+}
+
+.details-button:hover {
+  background-color: #cbc9c9;
 }
