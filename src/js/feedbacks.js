@@ -1,9 +1,7 @@
 import axios from 'axios';
 import Swiper from 'swiper/bundle';
 import 'swiper/swiper-bundle.css';
-// import '../css/feedbacks.css'
-// import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
+
 
 const feedbacksList = document.querySelector('.feedbacks-list');
 
@@ -85,14 +83,13 @@ getFeedbacks().then(data => {
   });
   console.log(document.querySelector('.swiper-pagination'));
   const swiper = new Swiper('.swiper', {
-    loop: true,
+    loop: false,
     slidesPerView: 1,
     spaceBetween: 20,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
       type: 'bullets',
-      
     },
     navigation: {
       prevEl: '.custom-prev',
