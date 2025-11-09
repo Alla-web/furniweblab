@@ -132,11 +132,9 @@ function closeModal() {
 // інформація на основі якої відкрила модалку
 async function handleOpenDetailsModal(event) {
   const productId = event.detail.productId;
-  console.log(productId);
 
   try {
     const details = await fetchProductDetails(productId);
-    console.log(details);
 
     modalContentEl.innerHTML = renderModalContent(details);
 
