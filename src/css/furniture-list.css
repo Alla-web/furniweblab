@@ -291,6 +291,11 @@
   .furniture-list-item {
     width: calc((100% - 24px) / 2);
   }
+
+  .card-title {
+    height: calc(1.7em * 2);
+    overflow: hidden;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
