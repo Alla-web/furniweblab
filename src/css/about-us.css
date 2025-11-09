@@ -1,3 +1,8 @@
+img{
+    border-radius: 8px;
+}
+
+
 .about-us-section {
     background-color: #f0e6e6;
 }
@@ -12,7 +17,7 @@
     font-size: 36px;
     line-height: 120%;
     letter-spacing: 0.01em;
-    color: var(--color-scheme-2-text);
+    color: #080C09;
     padding-bottom: 24px;
 }
 .text-deskr{
@@ -20,7 +25,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 160%;
-    color: var(--color-scheme-2-text);
+    color: #080C09;
 }
 
 .picture-box{
