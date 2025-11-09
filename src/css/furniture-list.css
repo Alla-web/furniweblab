@@ -259,3 +259,7 @@
 .details-button:hover {
   background-color: #cbc9c9;
 }
+
+.load-more-button {
+  margin-bottom: 48px;
+}

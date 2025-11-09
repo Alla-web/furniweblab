@@ -117,11 +117,6 @@ async function onCategoryClick(event) {
     totalPages = Math.ceil(totalItems / limit);
     itemsPage = data.page;
 
-    console.log('totalItems: ', totalItems);
-    console.log('limit: ', limit);
-    console.log('totalPages: ', totalPages);
-    console.log('itemsPage: ', itemsPage);
-
     furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
     loadMoreFurniBtn.hidden = itemsPage >= totalPages;
@@ -219,7 +214,5 @@ async function onLoadMoreFfurniBtnClick(event) {
     hideLoader();
   } catch (error) {
     showError(error);
-  } finally {
-    console.log('Count of cards: ', furnitureListContainer.children.length);
   }
 }
