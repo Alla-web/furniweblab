@@ -58,7 +58,6 @@ export async function getFeedbacks() {
     const feedbacks = await axios(
       'https://furniture-store-v2.b.goit.study/api/feedbacks?limit=10&page=1'
     );
-    console.log(feedbacks.data);
 
     return feedbacks.data;
   } catch (error) {
@@ -81,7 +80,7 @@ getFeedbacks().then(data => {
     `;
     wrapper.insertAdjacentHTML('beforeend', slide);
   });
-  console.log(document.querySelector('.swiper-pagination'));
+ 
   const swiper = new Swiper('.swiper', {
     loop: false,
     slidesPerView: 1,
