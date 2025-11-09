@@ -19,7 +19,11 @@ function showToastError(message) {
 //  Запит зa ID
 async function fetchProductDetails(productId) {
     try {
-        const response = await axios.get(`/products/${productId}`);
+        const response = await axios.get(`/products`, {
+            params: {
+                id: productId 
+            }
+        });
         return response.data;
     } catch (error) {
         console.error(`Помилка при отриманні деталей продукту з ID ${productId}:`, error);
