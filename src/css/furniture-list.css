@@ -41,6 +41,12 @@
   height: 122px;
 }
 
+.category-item:hover,
+.category-item:hover {
+  border: 8px solid #6b0609;
+  border-radius: 16px;
+}
+
 .category-card {
   border-radius: 8px;
 
