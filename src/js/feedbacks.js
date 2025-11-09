@@ -97,23 +97,19 @@ getFeedbacks().then(data => {
     },
     breakpoints: {
       768: {
-      slidesPerView: 2, // показываем сразу 2 слайда
-      spaceBetween: 24, // расстояние между ними
+      slidesPerView: 2, 
+      spaceBetween: 24, 
     },
       1440: {
-        slidesPerView: 3, // показываем сразу 2 слайда
+        slidesPerView: 3, 
       spaceBetween: 24
       }
   },
   });
-
-  // const prevBtn = document.querySelector('.custom-prev');
-  // const nextBtn = document.querySelector('.custom-next');
-
-  // prevBtn.addEventListener('click', () => {
-  //   swiper.slidePrev();
-  // });
-  // nextBtn.addEventListener('click', () => {
-  //   swiper.slideNext();
-  // });
-});
+})
+.catch(error => {
+  console.error('Ошибка при инициализации слайдера отзывов:', error);
+  feedbacksList.innerHTML = `<p style="color: red;">
+      Не удалось загрузить отзывы. Пожалуйста, попробуйте обновить страницу.
+    </p>`;
+})

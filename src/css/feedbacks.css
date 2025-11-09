@@ -105,32 +105,32 @@ button svg {
 .swiper-controls {
   width: 100%;
   display: flex;
-  justify-content: space-between; /* Точки -- налево, кнопки -- направо */
-  align-items: center; /* Выравниваем их по центру по вертикали */
-  margin-top: 40px; /* Добавим отступ сверху, как на макете (подберите по вкусу) */
+  justify-content: space-between; 
+  align-items: center; 
+  margin-top: 40px; 
 }
 .swiper-pagination .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
-  background-color: #D9D9D9; /* Светло-серый цвет, как на макете */
-  opacity: 1; /* Swiper по умолчанию делает их полупрозрачными, убираем это */
+  background-color: #D9D9D9; 
+  opacity: 1; 
 }
 
 swiper-pagination .swiper-pagination-bullet-active {
-  width: 10px; /* Делаем ее чуть больше, как на макете */
+  width: 10px; 
   height: 10px;
   background-color: #080C09;
 }
 
 .feedbacks-list .swiper .swiper-pagination {
-  position: static; /* Сбрасываем позиционирование Swiper */
-  text-align: left; /* <-- Вот главный фикс! */
-  width: auto; /* Занимает только необходимое место */
+  position: static; 
+  text-align: left; 
+  width: auto; 
 }
 .feedbacks-list .swiper .swiper-pagination-bullet-active {
-  width: 10px;  /* Размер как на макете */
-  height: 10px; /* Добавим !important для гарантии */
-  background-color: #080C09; /* <-- Явно задаем черный цвет */
+  width: 10px;  
+  height: 10px; 
+  background-color: #080C09; 
   opacity: 1; 
 }
 
