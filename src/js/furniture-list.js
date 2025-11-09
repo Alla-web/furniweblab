@@ -79,7 +79,7 @@ renderCategories(categoriesBoxes);
 
 //ловимо клік по категорії, грузимо товари з обраної категорії:
 
-const furnitureListContainer = document.querySelector('.futniture-list');
+const furnitureListContainer = document.querySelector('.furniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
 categoryContainer.addEventListener('click', onCategoryClick);
