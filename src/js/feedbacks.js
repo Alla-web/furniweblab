@@ -14,10 +14,10 @@ feedbacksList.innerHTML = `
   
       <div class="swiper-nav-btn">
         <button class="general-btn custom-prev"><svg class="" width="14" height="14">
-        <use href="/img/sprite.svg#icon-arrow-left"></use>
+        <use href="/furniweblab/img/sprite.svg#icon-arrow-left"></use>
         </svg></button>
         <button class="general-btn custom-next"><svg class="" width="14" height="14">
-        <use href="/img/sprite.svg#icon-arrow-right"></use>
+        <use href="/furniweblab/img/sprite.svg#icon-arrow-right"></use>
         </svg></button>
       </div>
     </div>
@@ -41,13 +41,13 @@ function createStars(rating) {
   let starsHTML = '';
 
   for (let i = 0; i < fullStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-full"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/furniweblab/img/sprite.svg#icon-star-full"></use></svg>`;
   }
   if (halfStar) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-half"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/furniweblab/img/sprite.svg#icon-star-half"></use></svg>`;
   }
   for (let i = 0; i < emptyStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-empty"></use></svg>`;
+    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="/furniweblab/img/sprite.svg#icon-star-empty"></use></svg>`;
   }
 
   return starsHTML;
