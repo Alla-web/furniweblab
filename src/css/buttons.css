@@ -25,14 +25,26 @@
     inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
 }
 
-.button:hover,
 .button:focus {
+  outline: none;
+}
+
+/* .button:hover {
+  background-color: #b8888a;
+} */
+
+/* під час кліку */
+.button:active {
   background-color: #b8888a;
 }
 
 button[disabled] {
   background-color: #e8e6e6;
   color: #080c09;
+}
+
+.button[hidden] {
+  display: none !important;
 }
 
 @media only screen and (min-width: 768px) {

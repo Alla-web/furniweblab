@@ -11,6 +11,7 @@
 @import url('./container.css');
 @import url('./animations.css');
 @import url('./izitost.css');
+@import url('./loader.css');
 
 /* Sections style */
 @import url('./header.css');

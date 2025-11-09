@@ -8,19 +8,51 @@ import 'izitoast/dist/css/iziToast.min.css';
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
 const STORAGE_KEY = 'pickedCategoryId';
 
+function showError(error) {
+  iziToast.error({
+    message: `${error.message ?? String(error)}`,
+    position: 'topCenter',
+    timeout: 3000,
+    backgroundColor: '#EF4040',
+    messageColor: 'white',
+    close: false,
+  });
+}
+
+function showInfo(info) {
+  iziToast.info({
+    message: `${info}`,
+    position: 'topCenter',
+    timeout: 3000,
+    backgroundColor: '#009b18',
+    messageColor: 'white',
+    close: false,
+  });
+}
+
+const loader = document.querySelector('.loading');
+
+function showLoader() {
+  loader.hidden = false;
+}
+
+function hideLoader() {
+  loader.hidden = true;
+}
+
+localStorage.removeItem(STORAGE_KEY);
+
+let itemsPage = 1;
+let totalItems = 0;
+let totalPages = 0;
+const limit = 8;
+
 async function fetchCategories() {
   try {
     const { data: categories } = await axios('/categories');
     return categories;
   } catch (error) {
-    iziToast.error({
-      message: `${error.message ?? String(error)}`,
-      position: 'topCenter',
-      timeout: 3000,
-      backgroundColor: '#EF4040',
-      messageColor: 'white',
-      close: false,
-    });
+    showError(error);
   }
 }
 
@@ -51,40 +83,52 @@ const furnitureListContainer = document.querySelector('.futniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
 categoryContainer.addEventListener('click', onCategoryClick);
-let itemsPage = 1;
 
 async function onCategoryClick(event) {
+  showLoader();
+
   const pickedCategoryCard = event.target.closest('.category-card');
 
   if (!categoryContainer.contains(pickedCategoryCard) || !pickedCategoryCard) {
     return;
   }
 
+  itemsPage = 1;
+  furnitureListContainer.innerHTML = '';
+
   const categoryId = pickedCategoryCard.dataset.id;
-  localStorage.setItem(STORAGE_KEY, categoryId);
+
+  if (categoryId === undefined || categoryId === null) {
+    localStorage.removeItem(STORAGE_KEY);
+  } else {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(categoryId));
+  }
 
   try {
-    const { data: categoryItems } = await axios(`/furnitures`, {
+    const { data } = await axios(`/furnitures`, {
       params: {
         page: itemsPage,
-        limit: 10,
+        limit,
         category: categoryId,
-        // sortDirect: asc,
       },
     });
 
-    furnitureListContainer.innerHTML = renderFurnitureList(
-      categoryItems.furnitures
-    );
+    totalItems = data.totalItems;
+    totalPages = Math.ceil(totalItems / limit);
+    itemsPage = data.page;
+
+    console.log('totalItems: ', totalItems);
+    console.log('limit: ', limit);
+    console.log('totalPages: ', totalPages);
+    console.log('itemsPage: ', itemsPage);
+
+    furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
+
+    loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+
+    hideLoader();
   } catch (error) {
-    iziToast.error({
-      message: `${error.message ?? String(error)}`,
-      position: 'topCenter',
-      timeout: 3000,
-      backgroundColor: '#EF4040',
-      messageColor: 'white',
-      close: false,
-    });
+    showError(error);
   }
 }
 
@@ -93,7 +137,7 @@ function renderFurnitureList(furnitureList) {
     .sort((a, b) => a.price - b.price)
     .map(
       furniItem => `
-        <li>
+        <li class="furniture-list-item">
             <img class="card-image" src="${furniItem.images[0]}" alt="${
         furniItem.name
       }"/>
@@ -126,31 +170,56 @@ const loadMoreFurniBtn = document.querySelector('.load-more-button');
 loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
 
 async function onLoadMoreFfurniBtnClick(event) {
-  if (!furnitureListContainer.length) {
+  furnitureListContainer.insertAdjacentElement('beforeend', loader);
+  showLoader();
+
+  if (!furnitureListContainer.children.length) {
+    showInfo('Please, pick the furnirure category before');
     return;
   }
 
-  itemsPage += 1;
-  const categoryId = localStorage.getItem(STORAGE_KEY);
+  itemsPage++;
+  const categoryId = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
   try {
-    const { data: nextFurniList } = await axios(`/furnitures`, {
+    const { data } = await axios(`/furnitures`, {
       params: {
         page: itemsPage,
-        limit: 10,
+        limit,
         category: categoryId,
       },
     });
 
-    console.log(nextFurniList);
+    totalItems = data.totalItems;
+    totalPages = Math.ceil(totalItems / limit);
+    itemsPage = Number(data.page);
+
+    if (itemsPage < totalPages) {
+      furnitureListContainer.insertAdjacentHTML(
+        'beforeend',
+        renderFurnitureList(data.furnitures)
+      );
+      loadMoreFurniBtn.hidden = false;
+    } else {
+      showInfo('This categoty has not more furniture');
+      loadMoreFurniBtn.hidden = true;
+    }
+
+    const furniListItem = furnitureListContainer.querySelector(
+      '.furniture-list-item'
+    );
+    if (furniListItem) {
+      window.scrollBy({
+        left: 0,
+        top: furniListItem.getBoundingClientRect().height,
+        behavior: 'smooth',
+      });
+    }
+
+    hideLoader();
   } catch (error) {
-    iziToast.error({
-      message: `${error.message ?? String(error)}`,
-      position: 'topCenter',
-      timeout: 3000,
-      backgroundColor: '#EF4040',
-      messageColor: 'white',
-      close: false,
-    });
+    showError(error);
+  } finally {
+    console.log('Count of cards: ', furnitureListContainer.children.length);
   }
 }
