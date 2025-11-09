@@ -85,7 +85,7 @@ getFeedbacks().then(data => {
   const swiper = new Swiper('.swiper', {
     loop: false,
     slidesPerView: 1,
-    spaceBetween: 20,
+    spaceBetween: 24,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -98,8 +98,13 @@ getFeedbacks().then(data => {
     breakpoints: {
       768: {
       slidesPerView: 2, // показываем сразу 2 слайда
-      spaceBetween: 20, // расстояние между ними
-    }},
+      spaceBetween: 24, // расстояние между ними
+    },
+      1440: {
+        slidesPerView: 3, // показываем сразу 2 слайда
+      spaceBetween: 24
+      }
+  },
   });
 
   // const prevBtn = document.querySelector('.custom-prev');

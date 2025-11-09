@@ -131,29 +131,21 @@ swiper-pagination .swiper-pagination-bullet-active {
   width: 10px;  /* Размер как на макете */
   height: 10px; /* Добавим !important для гарантии */
   background-color: #080C09; /* <-- Явно задаем черный цвет */
-  opacity: 1; /* На всякий случай сбрасываем прозрачность */
+  opacity: 1; /* На всякий случай п
 }
 
 
 .feedbacks-list .general-btn.swiper-button-disabled {
-  /* Отключаем клики */
+
   pointer-events: none; 
   
-  /* 1. Устанавливаем ФОН (Fill) */
+
   background-color: #F2F2F2;
-  
-  /* 2. Устанавливаем РАМКУ (Stroke)
-     rgba(8, 12, 9, 0.15) — это ваш черный (#080C09) 
-     с 15% непрозрачностью.
-  */
   border-color: rgba(8, 12, 9, 0.15);
 }
 
 .feedbacks-list .general-btn.swiper-button-disabled svg {
-  /* Устанавливаем базовый цвет иконки (черный) */
   fill: #080C09;
-  
-  /* Устанавливаем НЕПРОЗРАЧНОСТЬ иконки (Opacity 30%) */
   opacity: 0.3; 
 }
 
@@ -176,20 +168,14 @@ swiper-pagination .swiper-pagination-bullet-active {
 @media screen and (min-width: 768px) {
   .feedbacks-section {
     padding: 32px; 
-    
-    /* На всякий случай сбрасываем любые 
-       случайные 'margin' на самой секции
-    */
     margin: 0; 
   }
   .feedbacks-container {
-    margin: 0;  /* <-- Убираем мобильные 64px и 80px */
-    padding: 0; /* <-- Убираем 32px, которые мы добавили сюда раньше */
+    margin: 0;  
+    padding: 0; 
   }
 
-  /* 3. Все остальные стили для .feedbacks-list 
-     (которые мы уже починили) 
-  */
+ 
   .feedbacks-list {
     max-width: none !important; 
     width: 100%;             
@@ -203,5 +189,13 @@ swiper-pagination .swiper-pagination-bullet-active {
   }
   .feedbacks-list .feedback-card {
     height: 100%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  
+  
+  .feedbacks-section {
+    padding: 64px;
   }
 }
