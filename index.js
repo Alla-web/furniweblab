@@ -24,16 +24,16 @@ import{a as l,i as u,A as V,S as z}from"./assets/vendor-DY_idrNt.js";(function()
   
       <div class="swiper-nav-btn">
         <button class="general-btn custom-prev"><svg class="" width="14" height="14">
-        <use href="./img/sprite.svg#icon-arrow-left"></use>
+        <use href="/img/sprite.svg#icon-arrow-left"></use>
         </svg></button>
         <button class="general-btn custom-next"><svg class="" width="14" height="14">
-        <use href="./img/sprite.svg#icon-arrow-right"></use>
+        <use href="/img/sprite.svg#icon-arrow-right"></use>
         </svg></button>
       </div>
     </div>
 
   </div>
-`;const W=document.querySelector(".swiper .swiper-wrapper");function Y(e){return e>=3.3&&e<=3.7?3.5:e>=3.8&&e<=4.2?4:Math.round(e*10)/10}function Q(e){const t=Math.floor(e),o=e%1>=.5?1:0,r=5-t-o;let s="";for(let n=0;n<t;n++)s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-full"></use></svg>';o&&(s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-half"></use></svg>');for(let n=0;n<r;n++)s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="../img/sprite.svg#icon-star-empty"></use></svg>';return s}async function X(){try{return(await l("https://furniture-store-v2.b.goit.study/api/feedbacks?limit=10&page=1")).data}catch(e){return console.log(e),[]}}X().then(e=>{e.feedbacks.forEach(t=>{const o=Y(t.rate),r=`
+`;const W=document.querySelector(".swiper .swiper-wrapper");function Y(e){return e>=3.3&&e<=3.7?3.5:e>=3.8&&e<=4.2?4:Math.round(e*10)/10}function Q(e){const t=Math.floor(e),o=e%1>=.5?1:0,r=5-t-o;let s="";for(let n=0;n<t;n++)s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-full"></use></svg>';o&&(s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-half"></use></svg>');for(let n=0;n<r;n++)s+='<svg class="star" viewBox="0 0 32 32"><use xlink:href="/img/sprite.svg#icon-star-empty"></use></svg>';return s}async function X(){try{return(await l("https://furniture-store-v2.b.goit.study/api/feedbacks?limit=10&page=1")).data}catch(e){return console.log(e),[]}}X().then(e=>{e.feedbacks.forEach(t=>{const o=Y(t.rate),r=`
       <div class="swiper-slide">
         <div class="feedback-card">
           <div class="stars">${Q(o)}</div>
