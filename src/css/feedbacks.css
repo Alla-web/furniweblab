@@ -116,7 +116,12 @@ button svg {
   opacity: 1; 
 }
 
-swiper-pagination .swiper-pagination-bullet-active {
+.feedback-card .swiper-text {
+  
+  flex-grow: 1;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
   width: 10px; 
   height: 10px;
   background-color: #080C09;
