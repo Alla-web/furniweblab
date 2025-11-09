@@ -3,7 +3,10 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+//отримуємо список категорій:
+
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
+const STORAGE_KEY = 'pickedCategoryId';
 
 async function fetchCategories() {
   try {
@@ -21,10 +24,11 @@ async function fetchCategories() {
   }
 }
 
-//отримуємо список категорій
 fetchCategories();
 
 const categoriesBoxes = document.querySelectorAll('.category-card');
+
+//промальовуємо назви категорій:
 
 async function renderCategories(categoriesBoxes) {
   const categories = await fetchCategories();
@@ -39,18 +43,17 @@ async function renderCategories(categoriesBoxes) {
   });
 }
 
-//промальовуємо назви категорій
 renderCategories(categoriesBoxes);
 
-//ловимо клік по категорії
+//ловимо клік по категорії, грузимо товари з обраної категорії:
+
 const furnitureListContainer = document.querySelector('.futniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
 categoryContainer.addEventListener('click', onCategoryClick);
+let itemsPage = 1;
 
 async function onCategoryClick(event) {
-  event.preventDefault();
-
   const pickedCategoryCard = event.target.closest('.category-card');
 
   if (!categoryContainer.contains(pickedCategoryCard) || !pickedCategoryCard) {
@@ -58,7 +61,7 @@ async function onCategoryClick(event) {
   }
 
   const categoryId = pickedCategoryCard.dataset.id;
-  let itemsPage = 1;
+  localStorage.setItem(STORAGE_KEY, categoryId);
 
   try {
     const { data: categoryItems } = await axios(`/furnitures`, {
@@ -115,4 +118,39 @@ function renderFurnitureList(furnitureList) {
     `
     )
     .join('');
+}
+
+// пагінація по натисканню на кнопку
+const loadMoreFurniBtn = document.querySelector('.load-more-button');
+
+loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
+
+async function onLoadMoreFfurniBtnClick(event) {
+  if (!furnitureListContainer.length) {
+    return;
+  }
+
+  itemsPage += 1;
+  const categoryId = localStorage.getItem(STORAGE_KEY);
+
+  try {
+    const { data: nextFurniList } = await axios(`/furnitures`, {
+      params: {
+        page: itemsPage,
+        limit: 10,
+        category: categoryId,
+      },
+    });
+
+    console.log(nextFurniList);
+  } catch (error) {
+    iziToast.error({
+      message: `${error.message ?? String(error)}`,
+      position: 'topCenter',
+      timeout: 3000,
+      backgroundColor: '#EF4040',
+      messageColor: 'white',
+      close: false,
+    });
+  }
 }
