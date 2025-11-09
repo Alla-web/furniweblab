@@ -14,7 +14,7 @@ document.addEventListener("click", (e) => {
 
 
   productId = btn.dataset.productId;
-  color = btn.dataset.color;
+  color = btn.dataset.marker;
 
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
@@ -69,7 +69,7 @@ form.addEventListener("submit", async (e) => {
     hasError = true;
   }
 
-  if (!phone || !/^\d+$/.test(phone)) {
+  if (!phone || !/^\d{9,12}$/.test(phone)) {
     showInputError(form.phone, "Error Text");
     hasError = true;
   }
