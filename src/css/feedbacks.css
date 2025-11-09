@@ -131,7 +131,7 @@ swiper-pagination .swiper-pagination-bullet-active {
   width: 10px;  /* Размер как на макете */
   height: 10px; /* Добавим !important для гарантии */
   background-color: #080C09; /* <-- Явно задаем черный цвет */
-  opacity: 1; /* На всякий случай п
+  opacity: 1; 
 }
 
 
