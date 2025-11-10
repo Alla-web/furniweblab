@@ -1,5 +1,4 @@
 .order-modal {
-  display: none;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.25);
@@ -8,6 +7,7 @@
   padding: 64px 20px;
   font-family: 'Raleway', sans-serif;
   align-items: center;
+  display: none;
 }
 
 .modal {
@@ -17,8 +17,10 @@
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
-  width: 335px;
+  width: 100%;
+  overflow-y: auto;
   max-height: 703px;
+  box-sizing: border-box;
 }
 
 .modal-title {
@@ -40,6 +42,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
   width: 32px;
   height: 32px;
 }
@@ -60,15 +63,23 @@
 .input-error-text {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.6;
   color: #6b0609;
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  margin: 0;
+}
+
+.input-wrapper {
+  position: relative;
 }
 
 .modal-form input,
 .modal-form textarea {
   border-radius: 12px;
-  min-width: 295px;
+  width: 100%;
   margin-top: 8px;
   border: 1px solid rgba(8, 12, 9, 0.15);
   font-weight: 400;
@@ -78,6 +89,7 @@
   resize: none;
   background: rgba(8, 12, 9, 0.05);
   display: block;
+  box-sizing: border-box;
 }
 
 .modal-form input {
@@ -114,7 +126,7 @@
   width: 100%;
   border-radius: 100px;
   padding: 10px 24px;
-  width: 295px;
+  max-width: 295px;
   height: 46px;
   box-shadow: 0 1px 2px 0 rgba(8, 12, 9, 0.05),
     inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(8, 12, 9, 0.15),
@@ -131,6 +143,7 @@
   justify-content: center;
   display: block;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .submit-btn:hover {
@@ -174,31 +187,22 @@
     max-height: 671px;
     padding: 64px 32px 32px 32px;
   }
-
-  .modal-form input,
-  .modal-form textarea {
-    min-width: 640px;
-  }
 }
 
 @media screen and (min-width: 1440px) {
   .order-modal {
-    padding: 64px 287px;
+    padding-top: 64px;
+    padding-bottom: 64px;
   }
 
   .modal {
-    width: 866px;
-    max-height: 718px;
+    max-width: 866px;
+    height: 718px;
     padding: 64px;
   }
 
   .modal-title {
     font-weight: 700;
     font-size: 48px;
-  }
-
-  .modal-form input,
-  .modal-form textarea {
-    min-width: 738px;
   }
 }

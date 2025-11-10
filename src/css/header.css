@@ -168,9 +168,6 @@
 
 /* Mobile (320–375px гумовий) */
 @media (max-width: 375px) {
-    .container {
-        padding: 0 12px;
-    }
 
     .logo__text {
         font-size: 18px;
@@ -201,7 +198,6 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-end;
-        /* вирівнювання по правому краю */
         padding: 100px 32px 32px;
         gap: 24px;
         transition: right 0.3s ease;
@@ -255,9 +251,7 @@
 
 /* Маленькі екрани (320–375px) */
 @media (max-width: 375px) {
-    .container {
-        padding: 0 12px;
-    }
+
 
     .logo__text {
         font-size: 18px;

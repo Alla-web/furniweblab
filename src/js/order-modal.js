@@ -1,6 +1,8 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+import { showPageSpinner, hidePageSpinner } from './page-spinner';
 
+const loader = document.querySelector('.loading');
 
 const modal = document.getElementById("order-modal");
 const closeModalBtn = document.getElementById("closeModalBtn");
@@ -8,16 +10,26 @@ const form = document.getElementById("callback-form");
 let productId = null;
 let color = null;
 
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".open-order-modal-btn");
-  if (!btn) return;
+function showLoader() {
+  if (loader) loader.hidden = false;
+}
 
+function hideLoader() {
+  if (loader) loader.hidden = true;
+}
 
-  productId = btn.dataset.productId;
-  color = btn.dataset.color;
+document.body.addEventListener("open-order-modal", (e) => {
+  const { productId: id, selectedColor } = e.detail;
+
+  productId = id;
+  color = selectedColor;
+
+  showLoader();
 
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
+
+  hideLoader();
 });
 
 function closeModal() {
@@ -69,14 +81,23 @@ form.addEventListener("submit", async (e) => {
     hasError = true;
   }
 
-  if (!phone || !/^\d+$/.test(phone)) {
+  if (!phone || !/^(\d{10}|\d{12})$/.test(phone)) {
     showInputError(form.phone, "Error Text");
-    hasError = true;
+    iziToast.error({
+    title: "Помилка",
+    message: "Номер має містити лише 10 або 12 цифр.",
+    position: "topRight",
+    timeout: 4000,
+    color: '#EF4040',
+  });
+  hasError = true;
   }
 
   if (hasError) return;
 
-  if (phone.startsWith("0")) phone = "38" + phone;
+ if (phone.length === 10 && phone.startsWith("0")) {
+  phone = "38" + phone;
+};
 
   const orderData = {
     name,
@@ -87,6 +108,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
+    showLoader();
     const response = await fetch(
       "https://furniture-store-v2.b.goit.study/api/orders",
       {
@@ -104,6 +126,7 @@ form.addEventListener("submit", async (e) => {
         title: "Помилка!",
         message: result.message || "Щось пішло не так. Перевірте дані.",
         position: "topRight",
+        color: '#EF4040',
       });
       return;
     }
@@ -112,6 +135,7 @@ form.addEventListener("submit", async (e) => {
       title: "Успіх!",
       message: `Замовлення №${result.orderNum} успішно створено!`,
       position: "topRight",
+      color: '#009b18',
     });
 
     closeModal();
@@ -121,6 +145,9 @@ form.addEventListener("submit", async (e) => {
       title: "Помилка!",
       message: "Не вдалося відправити замовлення. Спробуйте пізніше.",
       position: "topRight",
-    });
+      color: '#EF4040',
+  });
+} finally {
+  hideLoader();
   }
 });

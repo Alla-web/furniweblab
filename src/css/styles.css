@@ -12,6 +12,8 @@
 @import url('./animations.css');
 @import url('./izitost.css');
 @import url('./loader.css');
+@import url('./page-spinner.css');
+@import url('./raiting-stars.css');
 
 /* Sections style */
 @import url('./header.css');

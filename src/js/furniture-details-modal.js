@@ -3,7 +3,11 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+import { showPageSpinner, hidePageSpinner } from './page-spinner';
+
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
+
+// спіннер
 
 // помилки
 function showToastError(message) {
@@ -16,6 +20,7 @@ function showToastError(message) {
     close: false,
   });
 }
+
 //  Запит зa ID
 async function fetchProductDetails(productId) {
   try {
@@ -38,9 +43,28 @@ const modalContentEl = document.querySelector(
 const modalCloseBtn = document.querySelector('.modal-close-btn');
 const body = document.body;
 
-// функція рейтингу,на основі бібліотеки Не ЗРОБЛЕНА
+// функція рейтингу,на основі бібліотеки
 function generateRatingStars(rating) {
-  return `<rating data-rating="${rating}" data-max-rating="5" data-icon="&#9733;" data-font-size="20px" class="rating-stars"></rating>`;
+  if (rating === undefined || rating === null) {
+    return '';
+  }
+
+  const roundedRating = Math.round(rating * 2) / 2;
+
+  const integerValue = Math.floor(roundedRating);
+
+  const hasHalfStar = roundedRating - integerValue === 0.5;
+
+  let classList = `rating value-${integerValue}`;
+  if (hasHalfStar) {
+    classList += ' half';
+  }
+
+  return `
+        <div class="${classList}">
+            <div class="star-container"></div>
+        </div>
+    `;
 }
 
 // маркери кольору(акцент на першому)
@@ -52,14 +76,33 @@ function generateColorOptions(colors) {
       const activeClass = index === 0 ? 'is-active' : '';
       return `
             <label class="color-option">
-                <input type="radio" name="product-color" value="${hexColor}" id="${colorId}" ${isActive} class="visually-hidden">
-                <span class="custom-radio-style ${activeClass}" style="background-color: ${hexColor};" data-color-hex="${hexColor}"></span>
+                <input
+                  type="radio"
+                  name="product-color"
+                  value="${hexColor}" 
+                  id="${colorId}"                    
+                  class="custom-radio-style ${activeClass}" 
+                  style="
+                    -webkit-appearance:none;
+                    appearance:none;
+                    width: 32px;
+                    height: 32px;
+                    background-color: ${hexColor}; 
+                    cursor:pointer; 
+                    display:inline-block;"
+                  data-color-hex=${hexColor}; 
+                  ${index === 0 ? 'checked' : ''}                      
+                  />
+                           
             </label>
         `;
     })
     .join('');
 
-  return `<div class="color-options-container"><p class="color-label">Колір</p><form class="color-options">${colorOptionsHTML}</form></div>`;
+  return `<div class="color-options-container">
+            <p class="color-label">Колір</p>
+            <form class="color-options">${colorOptionsHTML}</form>
+          </div>`;
 }
 
 // створення розмітки
@@ -67,9 +110,10 @@ function renderModalContent(details) {
   const priceFormatted = details.price.toLocaleString() + ' грн';
   return `
         <div class="product-gallery">
-            <img src="${details.images[0]}" alt="${
-    details.name
-  } (Основне)" class="main-product-image">
+            <img
+              src="${details.images[0]}" alt="${details.name} (Основне)" 
+              class="main-product-image" 
+            />
             <div class="gallery-thumbnails">
                  ${details.images
                    .slice(1)
@@ -82,24 +126,26 @@ function renderModalContent(details) {
         </div>
         
         <div class="product-info">
-            <h2 class="model-name">${
-              details.name
-            }</h2> <p class="category-name">${
-    details.category.name
-  }</p> <p class="product-price"><span class="price-value">${priceFormatted}</span><span class="price-currency"></span></p> ${generateRatingStars(
-    details.rate
-  )} ${generateColorOptions(details.color)} <div class="product-details">
-                <p class="description-text">${
-                  details.description
-                }</p> <p class="dimensions-text">Розміри: ${
-    details.sizes
-  } см</p> </div>
+            <h2 class="model-name">${details.name}</h2> 
+            <p class="category-name">${details.category.name}</p> 
+            <p class="product-price">
+              <span class="price-value">${priceFormatted}</span>
+              <span class="price-currency"></span>
+            </p>
+            <div class="stars-container">${generateRatingStars(details.rate)} 
+                  ${generateColorOptions(details.color)} 
+            </div>            
+            <div class="product-details">
+                <p class="description-text">${details.description}</p> 
+                <p class="dimensions-text">Розміри: ${details.sizes} см</p> 
+            </div>
             
             <button 
                 class="button order-btn open-order-modal-btn" 
                 type="button"
                 data-product-id="${details._id}"      
-                data-marker="details_page_order">  
+                data-marker="details_page_order"
+                >  
                 Перейти до замовлення
             </button>
         </div>
@@ -108,25 +154,16 @@ function renderModalContent(details) {
 
 // маркери
 function onColorChange(event) {
+  if (!event.target.matches('input[name="product-color"]')) return;
+
   const optionsContainer = event.currentTarget;
 
-  // Видаляємо клас 'is-active' з усіх елементів
+  // переключаємо клас 'is-active' з усіх елементів
   optionsContainer
-    .querySelectorAll('.custom-radio-style')
-    .forEach(styleEl => styleEl.classList.remove('is-active'));
-
-  // Додаємо клас 'is-active' до обраного елемента
-  if (event.target.classList.contains('visually-hidden')) {
-    event.target.nextElementSibling.classList.add('is-active');
-  }
-}
-
-// ф-ція закриття модолки
-function closeModal() {
-  modalBackdrop.classList.add('is-hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeyPress);
-  modalContentEl.innerHTML = '';
+    .querySelectorAll('input[name="product-color"]')
+    .forEach(styleEl =>
+      styleEl.classList.toggle('is-active', styleEl === event.target)
+    );
 }
 
 // інформація на основі якої відкрила модалку
@@ -151,9 +188,29 @@ async function handleOpenDetailsModal(event) {
     modalBackdrop.classList.remove('is-hidden');
     body.classList.add('modal-open');
     document.addEventListener('keydown', onEscKeyPress); // Закриття по Esc
+
+    //повідомили, що модалка готова
+    document.body.dispatchEvent(
+      new CustomEvent('details-modal-opened', { bubbles: true })
+    );
   } catch (error) {
     showToastError('Не вдалося відобразити деталі товару.');
+  } finally {
+    hidePageSpinner();
   }
+}
+
+// ф-ція закриття модолки
+function closeModal() {
+  modalBackdrop.classList.add('is-hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscKeyPress);
+  modalContentEl.innerHTML = '';
+
+  // повідомити про закриття
+  document.body.dispatchEvent(
+    new CustomEvent('details-modal-closed', { bubbles: true })
+  );
 }
 
 /** кнопка "Перейти до замовлення" */
@@ -205,6 +262,10 @@ modalCloseBtn.addEventListener('click', closeModal); // кнопка "Закри
 //  Чекаю подію 'open-details-modal'
 document.body.addEventListener('open-details-modal', handleOpenDetailsModal);
 
+// Слухачі для приховування спінера
+document.body.addEventListener('details-modal-opened', hidePageSpinner);
+document.body.addEventListener('details-modal-closed', hidePageSpinner);
+
 function onGlobalDetailsClick(event) {
   const detailsButton = event.target.closest('.details-button');
 
@@ -214,10 +275,11 @@ function onGlobalDetailsClick(event) {
   }
 
   event.preventDefault();
+  showPageSpinner();
 
   const productId = detailsButton.dataset.id;
 
-  // викликаю подію щоб відкрити модолку
+  // викликаю подію щоб відкрити модалку
   const detailsEvent = new CustomEvent('open-details-modal', {
     bubbles: true,
     detail: {
@@ -225,6 +287,7 @@ function onGlobalDetailsClick(event) {
     },
   });
 
+  // диспатчимо івент
   document.body.dispatchEvent(detailsEvent);
 }
 
