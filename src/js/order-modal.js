@@ -67,11 +67,11 @@ form.addEventListener("submit", async (e) => {
     hasError = true;
   }
 
-  if (!phone || !/^(\d{9}|\d{12})$/.test(phone)) {
+  if (!phone || !/^(\d{10}|\d{12})$/.test(phone)) {
     showInputError(form.phone, "Error Text");
     iziToast.error({
     title: "Помилка",
-    message: "Номер має містити лише 9 або 12 цифр.",
+    message: "Номер має містити лише 10 або 12 цифр.",
     position: "topRight",
     timeout: 4000,
   });
@@ -80,7 +80,7 @@ form.addEventListener("submit", async (e) => {
 
   if (hasError) return;
 
- if (phone.length === 9 && phone.startsWith("0")) {
+ if (phone.length === 10 && phone.startsWith("0")) {
   phone = "38" + phone;
 };
 
