@@ -9,6 +9,7 @@
 # Eva Krisheminska (faq section)
 
 # Roman Shliapin (feedback section)
+https://github.com/Alla-web/furniweblab/pull/39
 
 # Volodymyr (footer)
 
