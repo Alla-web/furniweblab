@@ -39,9 +39,29 @@ const body = document.body;
 
 
 
-// функція рейтингу,на основі бібліотеки Не ЗРОБЛЕНА
+// функція рейтингу,на основі бібліотеки 
 function generateRatingStars(rating) {
-    return `<rating data-rating="${rating}" data-max-rating="5" data-icon="&#9733;" data-font-size="20px" class="rating-stars"></rating>`;
+   if (rating === undefined || rating === null) {
+        return ''; 
+    }
+
+    const roundedRating = Math.round(rating * 2) / 2;
+    
+    const integerValue = Math.floor(roundedRating); 
+
+    const hasHalfStar = (roundedRating - integerValue) === 0.5;
+    
+    let classList = `rating value-${integerValue}`;
+    if (hasHalfStar) {
+        classList += ' half';
+    }
+
+    return `
+        <div class="${classList}">
+            <div class="star-container">
+                </div>
+        </div>
+    `;
 }
 
 // маркери кольору(акцент на першому)
