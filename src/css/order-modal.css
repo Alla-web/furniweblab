@@ -18,9 +18,9 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
   width: 100%;
-overflow-y: auto;
+  overflow-y: auto;
   max-height: 703px;
- box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .modal-title {
@@ -73,7 +73,7 @@ overflow-y: auto;
 }
 
 .input-wrapper {
-  position: relative; 
+  position: relative;
 }
 
 .modal-form input,
@@ -143,7 +143,7 @@ overflow-y: auto;
   justify-content: center;
   display: block;
   margin: 0 auto;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .submit-btn:hover {
@@ -187,7 +187,6 @@ overflow-y: auto;
     max-height: 671px;
     padding: 64px 32px 32px 32px;
   }
-
 }
 
 @media screen and (min-width: 1440px) {
@@ -206,5 +205,4 @@ overflow-y: auto;
     font-weight: 700;
     font-size: 48px;
   }
-
 }
