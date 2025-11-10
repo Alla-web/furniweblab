@@ -156,7 +156,9 @@ function onColorChange(event) {
   // переключаємо клас 'is-active' з усіх елементів
   optionsContainer
     .querySelectorAll('input[name="product-color"]')
-    .forEach(styleEl => styleEl.classList.toggle('is-active', el === e.target));
+    .forEach(styleEl =>
+      styleEl.classList.toggle('is-active', el === event.target)
+    );
 }
 
 // ф-ція закриття модолки
