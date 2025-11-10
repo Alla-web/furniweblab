@@ -79,7 +79,7 @@ renderCategories(categoriesBoxes);
 
 //ловимо клік по категорії, грузимо товари з обраної категорії:
 
-const furnitureListContainer = document.querySelector('.futniture-list');
+const furnitureListContainer = document.querySelector('.furniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
 categoryContainer.addEventListener('click', onCategoryClick);
@@ -168,11 +168,6 @@ async function onLoadMoreFfurniBtnClick(event) {
   furnitureListContainer.insertAdjacentElement('beforeend', loader);
   showLoader();
 
-  if (!furnitureListContainer.children.length) {
-    showInfo('Please, pick the furnirure category before');
-    return;
-  }
-
   itemsPage++;
   const categoryId = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
@@ -196,7 +191,7 @@ async function onLoadMoreFfurniBtnClick(event) {
       );
       loadMoreFurniBtn.hidden = false;
     } else {
-      showInfo('This categoty has not more furniture');
+      showInfo('В даній категорії закінчилися товари');
       loadMoreFurniBtn.hidden = true;
     }
 
