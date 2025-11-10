@@ -157,7 +157,7 @@ function onColorChange(event) {
   optionsContainer
     .querySelectorAll('input[name="product-color"]')
     .forEach(styleEl =>
-      styleEl.classList.toggle('is-active', el === event.target)
+      styleEl.classList.toggle('is-active', styleEl === event.target)
     );
 }
 
