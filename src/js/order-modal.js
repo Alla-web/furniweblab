@@ -1,5 +1,6 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+import { showPageSpinner, hidePageSpinner } from './page-spinner';
 
 const loader = document.querySelector('.loading');
 
