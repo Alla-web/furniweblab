@@ -92,9 +92,11 @@
  } 
 
  .btn-link:hover,
- .btn-link:focus{
+ .btn-link:focus-visible {
     background-color: color-mix(in srgb, #6B0609 50%, white 50%);
  }
+
+
 .btn-link[disabled] {
     background-color: #e8e6e6;
     color: #080c09;
