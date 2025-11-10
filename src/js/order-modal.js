@@ -1,8 +1,8 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
-import { showPageSpinner, hidePageSpinner } from './page-spinner';
+import { showPageSpinner, hidePageSpinner } from './page-spinner.js';
 
-const loader = document.querySelector('.loading');
+const modalLoader = document.querySelector('#order-modal .loading');
 
 const modal = document.getElementById("order-modal");
 const closeModalBtn = document.getElementById("closeModalBtn");
@@ -10,12 +10,12 @@ const form = document.getElementById("callback-form");
 let productId = null;
 let color = null;
 
-function showLoader() {
-  if (loader) loader.hidden = false;
+function showModalLoader() {
+  if (modalLoader) modalLoader.style.display = 'flex';
 }
 
-function hideLoader() {
-  if (loader) loader.hidden = true;
+function hideModalLoader() {
+  if (modalLoader) modalLoader.style.display = 'none';
 }
 
 document.body.addEventListener("open-order-modal", (e) => {
@@ -24,13 +24,17 @@ document.body.addEventListener("open-order-modal", (e) => {
   productId = id;
   color = selectedColor;
 
-  showLoader();
+  showPageSpinner();
 
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  hideLoader();
+  setTimeout(() => {
+    hidePageSpinner();
+    document.body.style.overflow = "hidden";
+  }, 200);
 });
+
 
 function closeModal() {
   modal.style.display = "none";
@@ -108,7 +112,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    showLoader();
+    showModalLoader();
     const response = await fetch(
       "https://furniture-store-v2.b.goit.study/api/orders",
       {
@@ -148,6 +152,6 @@ form.addEventListener("submit", async (e) => {
       color: '#EF4040',
   });
 } finally {
-  hideLoader();
+  hideModalLoader();
   }
 });
