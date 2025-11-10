@@ -6,6 +6,7 @@
   flex-direction: column;
   margin-bottom: 80px;
 }
+
 .feedbacks-title {
   font-weight: 700;
   font-size: 36px;
@@ -14,6 +15,7 @@
   color: #080c09;
   margin-bottom: 24px;
 }
+
 .feedbacks-text {
   font-weight: 400;
   font-size: 18px;
@@ -124,6 +126,7 @@ button svg {
   text-align: left;
   width: auto;
 }
+
 .feedbacks-list .swiper .swiper-pagination-bullet-active {
   width: 10px;
   height: 10px;
@@ -147,6 +150,7 @@ button svg {
   fill: #fff;
   transition: all 0.2s ease;
 }
+
 .feedbacks-list .general-btn:not(.swiper-button-disabled):focus {
   background-color: #975052;
   fill: #fff;
@@ -165,7 +169,6 @@ button svg {
   }
 
   .feedbacks-container {
-    margin: 0;
     padding: 0;
   }
 
