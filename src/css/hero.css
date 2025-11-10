@@ -90,12 +90,11 @@
         inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
         inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
 
-}
-
-.btn-link:hover,
-.btn-link:focus {
+ .btn-link:hover,
+ .btn-link:focus-visible {
     background-color: color-mix(in srgb, #6B0609 50%, white 50%);
-}
+ }
+
 
 .btn-link[disabled] {
     background-color: #e8e6e6;
