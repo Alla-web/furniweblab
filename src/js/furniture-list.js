@@ -85,9 +85,32 @@ const categoryContainer = document.querySelector('.category-container');
 categoryContainer.addEventListener('click', onCategoryClick);
 
 async function onCategoryClick(event) {
+  event.preventDefault();
+
+  //плавний скрол з урахуванням висоти хедеру:
+  const scrollTarget = document.getElementById('furniture');
+
+  if (scrollTarget) {
+    const header = document.querySelector('.header');
+    const offset = (header?.offsetHeight || 0) + 16; // +16px запас
+    const top =
+      scrollTarget.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
   showLoader();
 
   const pickedCategoryCard = event.target.closest('.category-card');
+
+  const pickedCategoryId = pickedCategoryCard.dataset.id;
+
+  const previousCategoryId = localStorage.getItem(STORAGE_KEY);
+
+  if (pickedCategoryId === previousCategoryId) {
+    showError('Ви вже переглядали цю категорію. Оберіть іншу категорію');
+    hideLoader();
+    return;
+  }
 
   if (!categoryContainer.contains(pickedCategoryCard) || !pickedCategoryCard) {
     return;
@@ -96,12 +119,10 @@ async function onCategoryClick(event) {
   itemsPage = 1;
   furnitureListContainer.innerHTML = '';
 
-  const categoryId = pickedCategoryCard.dataset.id;
-
-  if (categoryId === undefined || categoryId === null) {
+  if (pickedCategoryId === undefined || pickedCategoryId === null) {
     localStorage.removeItem(STORAGE_KEY);
   } else {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(categoryId));
+    localStorage.setItem(STORAGE_KEY, pickedCategoryId);
   }
 
   try {
@@ -109,7 +130,7 @@ async function onCategoryClick(event) {
       params: {
         page: itemsPage,
         limit,
-        category: categoryId,
+        category: pickedCategoryId,
       },
     });
 
