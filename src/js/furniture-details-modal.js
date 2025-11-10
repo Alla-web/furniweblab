@@ -149,7 +149,7 @@ function renderModalContent(details) {
 
 // маркери
 function onColorChange(event) {
-  if (!e.target.matches('input[name="product-color"]')) return;
+  if (!event.target.matches('input[name="product-color"]')) return;
 
   const optionsContainer = event.currentTarget;
 
