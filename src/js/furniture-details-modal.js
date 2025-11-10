@@ -3,7 +3,11 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+import { showPageSpinner, hidePageSpinner } from './page-spinner';
+
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
+
+// спіннер
 
 // помилки
 function showToastError(message) {
@@ -16,6 +20,7 @@ function showToastError(message) {
     close: false,
   });
 }
+
 //  Запит зa ID
 async function fetchProductDetails(productId) {
   try {
@@ -161,14 +166,6 @@ function onColorChange(event) {
     );
 }
 
-// ф-ція закриття модолки
-function closeModal() {
-  modalBackdrop.classList.add('is-hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onEscKeyPress);
-  modalContentEl.innerHTML = '';
-}
-
 // інформація на основі якої відкрила модалку
 async function handleOpenDetailsModal(event) {
   const productId = event.detail.productId;
@@ -191,9 +188,29 @@ async function handleOpenDetailsModal(event) {
     modalBackdrop.classList.remove('is-hidden');
     body.classList.add('modal-open');
     document.addEventListener('keydown', onEscKeyPress); // Закриття по Esc
+
+    //повідомили, що модалка готова
+    document.body.dispatchEvent(
+      new CustomEvent('details-modal-opened', { bubbles: true })
+    );
   } catch (error) {
     showToastError('Не вдалося відобразити деталі товару.');
+  } finally {
+    hidePageSpinner();
   }
+}
+
+// ф-ція закриття модолки
+function closeModal() {
+  modalBackdrop.classList.add('is-hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscKeyPress);
+  modalContentEl.innerHTML = '';
+
+  // повідомити про закриття
+  document.body.dispatchEvent(
+    new CustomEvent('details-modal-closed', { bubbles: true })
+  );
 }
 
 /** кнопка "Перейти до замовлення" */
@@ -245,6 +262,10 @@ modalCloseBtn.addEventListener('click', closeModal); // кнопка "Закри
 //  Чекаю подію 'open-details-modal'
 document.body.addEventListener('open-details-modal', handleOpenDetailsModal);
 
+// Слухачі для приховування спінера
+document.body.addEventListener('details-modal-opened', hidePageSpinner);
+document.body.addEventListener('details-modal-closed', hidePageSpinner);
+
 function onGlobalDetailsClick(event) {
   const detailsButton = event.target.closest('.details-button');
 
@@ -254,10 +275,11 @@ function onGlobalDetailsClick(event) {
   }
 
   event.preventDefault();
+  showPageSpinner();
 
   const productId = detailsButton.dataset.id;
 
-  // викликаю подію щоб відкрити модолку
+  // викликаю подію щоб відкрити модалку
   const detailsEvent = new CustomEvent('open-details-modal', {
     bubbles: true,
     detail: {
@@ -265,6 +287,7 @@ function onGlobalDetailsClick(event) {
     },
   });
 
+  // диспатчимо івент
   document.body.dispatchEvent(detailsEvent);
 }
 

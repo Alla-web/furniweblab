@@ -8,5 +8,6 @@ import './js/feedbacks.js';
 
 import './js/furniture-details-modal.js';
 import './js/order-modal.js';
+import './js/page-spinner.js';
 
 import './js/footer.js';
