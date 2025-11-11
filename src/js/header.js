@@ -1,24 +1,51 @@
-const burger = document.getElementById('burger');
-const nav = document.getElementById('nav');
-const overlay = document.getElementById('overlay');
+// ==== Mobile Navbar Script ====
 
-burger.addEventListener('click', () => {
-  const isActive = nav.classList.toggle('active');
-  overlay.classList.toggle('active');
-  burger.classList.toggle('active', isActive);
+const refs = {
+  menuButton: document.querySelector('[data-mobile-navbar-toggle]'),
+  mobileNavbar: document.querySelector('[data-mobile-navbar]'),
+  overlay: document.querySelector('[data-mobile-navbar-overlay]'),
+  body: document.body,
+};
+
+// Відкрити / закрити меню
+refs.menuButton.addEventListener('click', toggleMenu);
+
+// Закриття при кліку по overlay
+refs.overlay.addEventListener('click', closeMenu);
+
+// Закриття при натисканні Escape
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !refs.mobileNavbar.classList.contains('is-hidden')) {
+    closeMenu();
+  }
 });
 
-overlay.addEventListener('click', () => {
-  nav.classList.remove('active');
-  overlay.classList.remove('active');
-  burger.classList.remove('active');
+// Закриття після кліку на пункт меню
+refs.mobileNavbar.querySelectorAll('.navbar-nav-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
 });
 
-// Закриття меню при кліку на пункт навігації
-document.querySelectorAll('.nav__link, .nav__btn').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('active');
-    overlay.classList.remove('active');
-    burger.classList.remove('active');
-  });
-});
+// === Функції ===
+function toggleMenu() {
+  const isOpen = !refs.mobileNavbar.classList.contains('is-hidden');
+
+  if (isOpen) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+}
+
+function openMenu() {
+  refs.mobileNavbar.classList.remove('is-hidden');
+  refs.overlay.classList.remove('is-hidden');
+  refs.menuButton.classList.add('is-active');
+  refs.body.classList.add('no-scroll');
+}
+
+function closeMenu() {
+  refs.mobileNavbar.classList.add('is-hidden');
+  refs.overlay.classList.add('is-hidden');
+  refs.menuButton.classList.remove('is-active');
+  refs.body.classList.remove('no-scroll');
+}
