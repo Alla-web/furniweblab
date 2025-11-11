@@ -62,7 +62,7 @@ blur(6px); }
 
 Респонс:
 
-Точки: 320–375 (mobile), 768 (tablet), 1440+ (desktop).
+Точки: 320–375 (mobile), 768 (tablet), 900+ (tablet), 1440+ (desktop).
 
 Галерея на flex-box та grid, без жорстких px-висот (використовується
 aspect-ratio + object-fit)
