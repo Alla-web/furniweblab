@@ -77,8 +77,34 @@ async function renderCategories(categoriesBoxes) {
 
 renderCategories(categoriesBoxes);
 
-//ловимо клік по категорії, грузимо товари з обраної категорії:
+async function furnitureFirstLoading() {
+  showLoader();
 
+  try {
+    const { data } = await axios(`/furnitures`, {
+      params: {
+        page: itemsPage,
+        limit,
+      },
+    });
+
+    totalItems = data.totalItems;
+    totalPages = Math.ceil(totalItems / limit);
+    itemsPage = data.page;
+
+    furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
+
+    loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+  } catch (error) {
+    showError(error);
+  } finally {
+    hideLoader();
+  }
+}
+
+furnitureFirstLoading();
+
+//ловимо клік по категорії, грузимо товари з обраної категорії:
 const furnitureListContainer = document.querySelector('.furniture-list');
 const categoryContainer = document.querySelector('.category-container');
 
@@ -207,6 +233,8 @@ async function onLoadMoreFfurniBtnClick(event) {
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
+    console.log(totalPages);
+
     itemsPage = Number(data.page);
 
     if (itemsPage < totalPages) {
