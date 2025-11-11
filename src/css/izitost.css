@@ -3,8 +3,9 @@
 }
 
 /* фіксуємо ширину всіх тостів */
+
 .iziToast {
-  width: 370px !important;
+  width: 300px !important;
   max-width: none !important; /* щоб не обмежувалося maxWidth */
 }
 
@@ -27,7 +28,19 @@
     sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important; /* якщо треба жирніше */
+  color: #ffffff !important;
 }
 
 /* error: backgroundColor: '#EF4040', */
 /* info: backgroundColor: '#009b18', */
+
+.iziToast .iziToast-close {
+  color: #fff !important;
+  opacity: 1 !important; /* щоб не була напівпрозора */
+}
+
+@media only screen and (min-width: 500px) {
+  .iziToast {
+    width: 370px !important;
+  }
+}
