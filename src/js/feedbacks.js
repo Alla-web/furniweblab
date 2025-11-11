@@ -27,30 +27,28 @@ feedbacksList.innerHTML = `
 
 const wrapper = document.querySelector('.swiper .swiper-wrapper');
 
-export function roundRating(value) {
-  if (value >= 3.3 && value <= 3.7) return 3.5;
-  if (value >= 3.8 && value <= 4.2) return 4;
-  return Math.round(value * 10) / 10;
-}
 
-function createStars(rating) {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 >= 0.5 ? 1 : 0;
-  const emptyStars = 5 - fullStars - halfStar;
-
-  let starsHTML = '';
-
-  for (let i = 0; i < fullStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="${spriteUrl}#icon-star-full"></use></svg>`;
-  }
-  if (halfStar) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="${spriteUrl}#icon-star-half"></use></svg>`;
-  }
-  for (let i = 0; i < emptyStars; i++) {
-    starsHTML += `<svg class="star" viewBox="0 0 32 32"><use xlink:href="${spriteUrl}#icon-star-empty"></use></svg>`;
+function generateRatingStars(rating) {
+  if (rating === undefined || rating === null) {
+    return '';
   }
 
-  return starsHTML;
+  const roundedRating = Math.round(rating * 2) / 2;
+
+  const integerValue = Math.floor(roundedRating);
+
+  const hasHalfStar = roundedRating - integerValue === 0.5;
+
+  let classList = `rating value-${integerValue}`;
+  if (hasHalfStar) {
+    classList += ' half';
+  }
+
+  return `
+        <div class="${classList}">
+            <div class="star-container"></div>
+        </div>
+    `;
 }
 
 export async function getFeedbacks() {
@@ -68,11 +66,10 @@ export async function getFeedbacks() {
 
 getFeedbacks().then(data => {
   data.feedbacks.forEach(feedback => {
-    const roundedRate = roundRating(feedback.rate);
     const slide = `
       <div class="swiper-slide">
         <div class="feedback-card">
-          <div class="stars">${createStars(roundedRate)}</div>
+          ${generateRatingStars(feedback.rate)}
           <p class="swiper-text">“${feedback.descr}”</p>
           <p class="swiper-text-name">${feedback.name}</p>
         </div>
@@ -107,8 +104,8 @@ getFeedbacks().then(data => {
   });
 })
 .catch(error => {
-  console.error('Ошибка при инициализации слайдера отзывов:', error);
+  console.error('Помилка при ініціалізації слайдера відгуків:', error);
   feedbacksList.innerHTML = `<p style="color: red;">
-      Не удалось загрузить отзывы. Пожалуйста, попробуйте обновить страницу.
+      Неможливо завантажити відгуки. Будь ласка, спробуйте оновити сторінку.
     </p>`;
 })
