@@ -87,33 +87,37 @@ categoryContainer.addEventListener('click', onCategoryClick);
 async function onCategoryClick(event) {
   event.preventDefault();
 
+  showLoader();
+
+  const pickedCategoryCard = event.target.closest('.category-card');
+
+  if (!categoryContainer.contains(pickedCategoryCard) || !pickedCategoryCard) {
+    hideLoader();
+    showInfo('Оберіть, будь-ласка, категорію');
+    return;
+  }
+
+  const pickedCategoryId = pickedCategoryCard.dataset.id ?? null;
+
+  const previousCategoryId = localStorage.getItem(STORAGE_KEY);
+
+  if (pickedCategoryId !== null && pickedCategoryId === previousCategoryId) {
+    showError(
+      'Ви щойно переглядали цю категорію. Перегляньте, будь-ласка, інші наші товари'
+    );
+    hideLoader();
+    return;
+  }
+
   //плавний скрол з урахуванням висоти хедеру:
   const scrollTarget = document.getElementById('furniture');
 
   if (scrollTarget) {
     const header = document.querySelector('.header');
-    const offset = (header?.offsetHeight || 0) + 16; // +16px запас
+    const offset = header?.offsetHeight || 0 + 16; // +16px запас
     const top =
       scrollTarget.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top, behavior: 'smooth' });
-  }
-
-  showLoader();
-
-  const pickedCategoryCard = event.target.closest('.category-card');
-
-  const pickedCategoryId = pickedCategoryCard.dataset.id;
-
-  const previousCategoryId = localStorage.getItem(STORAGE_KEY);
-
-  if (pickedCategoryId === previousCategoryId) {
-    showError('Ви щойно переглядали цю категорію. Оберіть іншу категорію');
-    hideLoader();
-    return;
-  }
-
-  if (!categoryContainer.contains(pickedCategoryCard) || !pickedCategoryCard) {
-    return;
   }
 
   itemsPage = 1;
@@ -190,7 +194,7 @@ async function onLoadMoreFfurniBtnClick(event) {
   showLoader();
 
   itemsPage++;
-  const categoryId = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  const categoryId = localStorage.getItem(STORAGE_KEY);
 
   try {
     const { data } = await axios(`/furnitures`, {
@@ -216,9 +220,11 @@ async function onLoadMoreFfurniBtnClick(event) {
       loadMoreFurniBtn.hidden = true;
     }
 
+    // плавний скролл
     const furniListItem = furnitureListContainer.querySelector(
       '.furniture-list-item'
     );
+
     if (furniListItem) {
       window.scrollBy({
         left: 0,
