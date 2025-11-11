@@ -18,59 +18,88 @@
     <script type="module" crossorigin src="/furniweblab/index.js"></script>
     <link rel="modulepreload" crossorigin href="/furniweblab/assets/vendor-DY_idrNt.js">
     <link rel="stylesheet" crossorigin href="/furniweblab/assets/vendor-D41gWVJh.css">
-    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-BwSI6C1y.css">
+    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-D-c6GlGS.css">
   </head>
   <body>
-    <header class="header">
-  <div class="container header__container">
-    <a href="./index.html" class="logo" aria-label="Меблерія">
-      <!-- SVG лого -->
-      <svg class="logo__icon" width="163" height="70" aria-hidden="true">
+    <header class="page-header">
+  <div class="container header-container">
+    <a href="./index.html" class="header-logo">
+      <svg class="icon-head-logo" width="163" height="70">
         <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#logo"></use>
       </svg>
     </a>
 
-    <nav class="nav" id="nav">
-      <ul class="nav__list">
-        <li>
-          <a href="#furniture-list-section" class="nav__link">Наші меблі</a>
-        </li>
-        <li><a href="#about-us-section" class="nav__link">Про нас</a></li>
-        <li><a href="#faq-section" class="nav__link">Часті питання</a></li>
-        <li><a href="#feedbacks" class="nav__link">Відгуки</a></li>
-      </ul>
-      <div class="nav__actions">
-        <a href="#shop" class="nav__btn">До покупок</a>
-      </div>
-    </nav>
-    <div class="header__actions">
-      <a href="#shop" class="nav__btn nav__btn--desktop">До покупок</a>
+    <div class="right-header-box">
+      <nav class="header-nav">
+        <ul class="header-nav-list">
+          <li class="header-item">
+            <a href="#furniture-list-section" class="header-nav-link current">Наші меблі</a>
+          </li>
+          <li class="header-item">
+            <a href="#about-us-section" class="header-nav-link">Про нас</a>
+          </li>
+          <li class="header-item">
+            <a href="#faq-section" class="header-nav-link">Часті питання</a>
+          </li>
+          <li class="header-item">
+            <a href="#feedbacks" class="header-nav-link">Відгуки</a>
+          </li>
+          <li class="header-item">
+            <a href="#furniture-list-section" class="header-nav-link header-nav-btn header-nav-btn-desktop">
+              До покупок
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Оновлена універсальна кнопка (бургер + хрестик) -->
+      <button type="button" class="menu-button" data-mobile-navbar-toggle aria-label="Меню">
+        <svg class="icon-head-button icon-menu" width="32" height="32">
+          <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#menu"></use>
+        </svg>
+        <svg class="icon-head-button icon-close" width="32" height="32">
+          <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#x"></use>
+        </svg>
+      </button>
     </div>
-    <button class="burger" id="burger" aria-label="Меню">
-      <!-- SVG бургер -->
-      <svg
-        class="burger__icon burger__icon--menu"
-        width="24"
-        height="24"
-        aria-hidden="true"
-      >
-        <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#menu"></use>
-      </svg>
-      <!-- SVG хрестик -->
-      <svg
-        class="burger__icon burger__icon--close"
-        width="24"
-        height="24"
-        aria-hidden="true"
-      >
-        <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#x"></use>
-      </svg>
-    </button>
   </div>
 
-  <div class="overlay" id="overlay"></div>
-</header>
+  <!-- Мобільне меню -->
+  <div class="mobile-navbar is-hidden" data-mobile-navbar>
+    <div class="container mobile-navbar-container">
+      <div class="mobile-navbar-header">
+        <a href="./index.html" class="navbar-header-logo">
+          <svg class="icon-head-logo" width="163" height="70">
+            <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#logo"></use>
+          </svg>
+        </a>
+      </div>
 
+      <nav class="navbar-menu-nav">
+        <ul class="navbar-nav-list">
+          <li class="navbar-nav-item">
+            <a href="#furniture-list-section" class="navbar-nav-link">Наші меблі</a>
+          </li>
+          <li class="navbar-nav-item">
+            <a href="#about-us-section" class="navbar-nav-link">Про нас</a>
+          </li>
+          <li class="navbar-nav-item">
+            <a href="#faq-section" class="navbar-nav-link">Часті питання</a>
+          </li>
+          <li class="navbar-nav-item">
+            <a href="#feedbacks" class="navbar-nav-link">Відгуки</a>
+          </li>
+          <li class="navbar-nav-item navbar-nav-item-mob">
+            <a href="#furniture-list-section" class="navbar-nav-link header-nav-btn">До покупок</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="mobile-navbar-overlay is-hidden" data-mobile-navbar-overlay></div>
+</header>
 
     <main>
       <!-- Loads the specified .html file -->
