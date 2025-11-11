@@ -1,264 +1,268 @@
-.header {
-    background-color: #fff;
-    position: relative;
-    z-index: 1000;
+/* === Плавний скрол === */
+html {
+    scroll-behavior: smooth;
 }
 
-.header__container {
+.page-header {
+    align-items: center;
+    height: 72px;
+}
+
+.header-container {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
+    letter-spacing: 0.02em;
 }
 
-/* Лого */
-.logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    font-weight: 600;
-    font-size: 20px;
-    gap: 8px;
+.header-logo {
+    transition: opacity 250ms ease-in-out;
 }
 
-.logo__icon {
-    display: inline-block;
+.header-nav-link:hover,
+.header-nav-link:focus,
+.header-logo:hover,
+.header-logo:focus,
+.navbar-header-logo:hover,
+.navbar-header-logo:focus,
+.navbar-nav-item:hover,
+.navbar-nav-item:focus {
+    opacity: 0.5;
 }
 
-/* Навігація */
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-}
-
-.nav__list {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav__link {
-    text-decoration: none;
-    color: #2b2b2b;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.nav__link:hover {
-    color: #7a7a7a;
-}
-
-/* Кнопка */
-.nav__btn {
-    background-color: #7d0d0d;
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 24px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.nav__btn:hover {
-    background-color: #590a0a;
-}
-
-/* Додаткові зони */
-.header__actions {
-    display: flex;
-    align-items: center;
-}
-
-.nav__actions {
+.header-nav-list {
+    font-family: "Raleway", sans-serif;
+    line-height: 1.6;
+    color: #080C09;
     display: none;
 }
 
-/* Бургер */
-.burger {
-    display: none;
-    position: relative;
-    width: 28px;
-    height: 28px;
+.menu-button {
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 1100;
+    padding: 0;
+    position: relative;
 }
 
-.burger__icon {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-.burger__icon--close {
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.burger.active .burger__icon--menu {
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.burger.active .burger__icon--close {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Overlay */
-.overlay {
+.icon-close {
     display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 100;
 }
 
-/* --- Адаптація --- */
+.menu-button.is-active .icon-menu {
+    display: none;
+}
 
-/* Tablet & Mobile */
-@media (max-width: 1023px) {
-    .burger {
-        display: block;
+.menu-button.is-active .icon-close {
+    display: block;
+}
+
+.right-header-box {
+    justify-content: end;
+}
+
+@media screen and (min-width: 768px) {
+    .page-header {
+        padding: 0 32px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .menu-button {
+        display: none;
     }
 
-    .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
-        background-color: #fff;
-        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        justify-content: center;
+    .page-header {
+        padding: 0 64px;
+    }
+
+    .header-nav-list {
+        display: flex;
         align-items: center;
-        transition: right 0.3s;
-        z-index: 1050;
         gap: 32px;
     }
 
-    .nav.active {
-        right: 0;
+    .header-nav-link {
+        transition: opacity 250ms ease-in-out;
     }
 
-    .nav__list {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .header__actions {
-        display: none;
-    }
-
-    .nav__actions {
+    .header-nav-btn-desktop {
         display: flex;
-    }
-
-    .overlay.active {
-        display: block;
-    }
-}
-
-/* Mobile (320–375px гумовий) */
-@media (max-width: 375px) {
-
-    .logo__text {
-        font-size: 18px;
-    }
-
-    .nav__btn {
-        width: 180px;
-        text-align: center;
-    }
-}
-
-/* --- Адаптація --- */
-
-/* Tablet (768px – 1023px) */
-@media (max-width: 1023px) {
-    .burger {
-        display: block;
-    }
-
-    .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 344px;
-        background-color: #fff;
-        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-end;
-        padding: 100px 32px 32px;
-        gap: 24px;
-        transition: right 0.3s ease;
-        z-index: 1050;
-    }
-
-    .nav.active {
-        right: 0;
-    }
-
-    .nav__list {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 20px;
-    }
-
-    .header__actions {
-        display: none;
-    }
-
-    .nav__actions {
-        display: flex;
-    }
-
-    .overlay.active {
-        display: block;
-    }
-}
-
-/* Mobile (до 767px): на весь екран + центр */
-@media (max-width: 767px) {
-    .nav {
-        width: 100%;
-        right: -100%;
         align-items: center;
         justify-content: center;
+        white-space: nowrap;
+        width: 129px;
+        height: 42px;
+        background-color: #6b0609;
+        color: #fff;
+        border-radius: 100px;
+    }
+}
+
+/* === Mobile Navbar Menu === */
+.mobile-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    z-index: 999;
+    transition:
+        opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+        transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-navbar.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-100%);
+}
+
+.mobile-navbar-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 375px;
+    gap: 32px;
+}
+
+.mobile-navbar-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-nav-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.header-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    max-width: 335px;
+    height: 42px;
+    background-color: #6b0609;
+    color: #fff;
+    border-radius: 100px;
+    box-shadow:
+        0 1px 2px 0 rgba(8, 12, 9, 0.05),
+        inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+        inset 0 0 0 1px rgba(8, 12, 9, 0.15),
+        inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 32px 24px 0 rgba(255, 255, 255, 0.05);
+    transition: background-color 250ms ease-in-out;
+}
+
+.header-nav-btn:hover,
+.header-nav-btn:focus {
+    background-color: color-mix(in srgb, #6B0609 50%, white 50%);
+}
+
+.header-nav-btn[disabled] {
+    background-color: #e8e6e6;
+    color: #080c09;
+}
+
+.navbar-nav-item {
+    transition: opacity 250ms ease-in-out;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.navbar-nav-item-mob {
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+}
+
+@media screen and (min-width: 768px) {
+    .mobile-navbar-header {
+        display: none;
+    }
+
+    .mobile-navbar {
+        top: 72px;
+        right: 0;
+        left: auto;
+        width: 249px;
+        height: 334px;
         padding: 0;
-        text-align: center;
+        margin: 0;
+        transform: translateX(100%);
     }
 
-    .nav__list {
-        align-items: center;
+    .mobile-navbar.is-hidden {
+        transform: translateX(100%);
     }
 
-    .nav__actions {
-        margin-top: 24px;
-        justify-content: center;
+    .navbar-nav-list {
+        align-items: end;
+        padding: 24px 32px;
+        max-width: 249px;
+    }
+
+    .navbar-nav-item-mob {
+        width: 185px;
+        height: 42px;
+    }
+
+    .mobile-navbar.is-hidden {
+        transform: translateX(100%);
+    }
+
+    .mobile-navbar:not(.is-hidden) {
+        transform: translateX(0);
     }
 }
 
-/* Маленькі екрани (320–375px) */
-@media (max-width: 375px) {
+/* === Overlay === */
+.mobile-navbar-overlay {
+    position: fixed;
+    top: 72px;
+    /* не перекриває header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(8, 12, 9, 0.3);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+        opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 998;
+}
 
+.mobile-navbar-overlay.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
 
-    .logo__text {
-        font-size: 18px;
-    }
+/* === No scroll body === */
+.no-scroll {
+    overflow: hidden;
+}
 
-    .nav__btn {
-        width: 180px;
-        text-align: center;
+@media screen and (max-width: 767px) {
+    .menu-button.is-active {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+        /* вище за меню */
     }
 }
