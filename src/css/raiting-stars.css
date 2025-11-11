@@ -1,6 +1,5 @@
 /* стилі зірочок */
 
-/* Базовий контейнер зірок */
 .rating {
   position: relative;
   display: inline-block;
@@ -10,7 +9,7 @@
 
 /* ВІДСТАНЬ між зірками має бути тут */
 .rating .star-container {
-  letter-spacing: 6px; /* підбери 4–8px під свій розмір */
+  letter-spacing: 6px;
 }
 
 /* підкладка */
@@ -21,24 +20,26 @@
 
 /* заповнення */
 .rating .star-container::after {
+  /* значення рейтингу 0..5 */
+  --value: 3.6;
+
   content: '★★★★★';
   color: #080c09;
   position: absolute;
   inset: 0 auto 0 0;
-  width: calc(var(--base) + var(--extra));
+  width: calc(var(--base) + var(--extra)); /*  */
   overflow: hidden;
   white-space: nowrap;
   pointer-events: none;
 }
 
-/* обводка — зроби тоншою, щоб не «склеювало» */
+/* обводка */
 .rating .star-container::before,
 .rating .star-container::after {
   -webkit-text-stroke: 1px #080c09; /* було 2px */
   paint-order: stroke fill;
 }
 
-/* решта як у тебе */
 .rating.value-0 {
   --base: 0%;
 }
