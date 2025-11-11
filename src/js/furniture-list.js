@@ -107,7 +107,7 @@ async function onCategoryClick(event) {
   const previousCategoryId = localStorage.getItem(STORAGE_KEY);
 
   if (pickedCategoryId === previousCategoryId) {
-    showError('Ви вже переглядали цю категорію. Оберіть іншу категорію');
+    showError('Ви щойно переглядали цю категорію. Оберіть іншу категорію');
     hideLoader();
     return;
   }
