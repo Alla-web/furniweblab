@@ -47,6 +47,12 @@ let totalItems = 0;
 let totalPages = 0;
 const limit = 8;
 
+const categoriesBoxes = document.querySelectorAll('.category-card');
+const furnitureListContainer = document.querySelector('.furniture-list');
+const categoryContainer = document.querySelector('.category-container');
+const paginationContainer = document.querySelector('.pagination-container');
+const loadMoreFurniBtn = document.querySelector('.load-more-button');
+
 async function fetchCategories() {
   try {
     const { data: categories } = await axios('/categories');
@@ -57,8 +63,6 @@ async function fetchCategories() {
 }
 
 fetchCategories();
-
-const categoriesBoxes = document.querySelectorAll('.category-card');
 
 //промальовуємо назви категорій:
 
@@ -77,6 +81,8 @@ async function renderCategories(categoriesBoxes) {
 
 renderCategories(categoriesBoxes);
 
+// підгружаємо першу партію товарів та пагінацію сторінок
+
 async function furnitureFirstLoading() {
   showLoader();
 
@@ -90,11 +96,15 @@ async function furnitureFirstLoading() {
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    itemsPage = data.page;
+    // itemsPage = data.page;
 
     furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
-    loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+    // loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+    console.log('paginationContainer: ', paginationContainer);
+
+    paginationContainer.hidden = false;
+    renderPaginationPagesList(totalPages);
   } catch (error) {
     showError(error);
   } finally {
@@ -105,9 +115,6 @@ async function furnitureFirstLoading() {
 furnitureFirstLoading();
 
 //ловимо клік по категорії, грузимо товари з обраної категорії:
-const furnitureListContainer = document.querySelector('.furniture-list');
-const categoryContainer = document.querySelector('.category-container');
-
 categoryContainer.addEventListener('click', onCategoryClick);
 
 async function onCategoryClick(event) {
@@ -166,15 +173,15 @@ async function onCategoryClick(event) {
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    itemsPage = data.page;
+    // itemsPage = data.page;
 
     furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
-    loadMoreFurniBtn.hidden = itemsPage >= totalPages;
-
-    hideLoader();
+    // loadMoreFurniBtn.hidden = itemsPage >= totalPages;
   } catch (error) {
     showError(error);
+  } finally {
+    hideLoader();
   }
 }
 
@@ -210,59 +217,94 @@ function renderFurnitureList(furnitureList) {
     .join('');
 }
 
-// пагінація по натисканню на кнопку
-const loadMoreFurniBtn = document.querySelector('.load-more-button');
+function renderPaginationPagesList(pagesCount, current = 1) {
+  paginationContainer.innerHTML = '';
 
-loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
+  for (let i = 1; i <= pagesCount; i++) {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = i;
+    btn.dataset.page = i;
+    if (i === current) btn.classList.add('active');
+    li.append(btn);
+    paginationContainer.append(li);
+  }
+}
 
-async function onLoadMoreFfurniBtnClick(event) {
+// // пагінація по натисканню на кнопку
+
+// loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
+
+// async function onLoadMoreFfurniBtnClick(event) {
+//   furnitureListContainer.insertAdjacentElement('beforeend', loader);
+//   showLoader();
+
+//   itemsPage++;
+//   const categoryId = localStorage.getItem(STORAGE_KEY);
+
+//   try {
+//     const { data } = await axios(`/furnitures`, {
+//       params: {
+//         page: itemsPage,
+//         limit,
+//         category: categoryId,
+//       },
+//     });
+
+//     totalItems = data.totalItems;
+//     totalPages = Math.ceil(totalItems / limit);
+//     console.log(totalPages);
+
+//     itemsPage = Number(data.page);
+
+//     if (itemsPage < totalPages) {
+//       furnitureListContainer.insertAdjacentHTML(
+//         'beforeend',
+//         renderFurnitureList(data.furnitures)
+//       );
+//       loadMoreFurniBtn.hidden = false;
+//     } else {
+//       showInfo('В даній категорії закінчилися товари');
+//       loadMoreFurniBtn.hidden = true;
+//     }
+
+//     // плавний скролл
+//     const furniListItem = furnitureListContainer.querySelector(
+//       '.furniture-list-item'
+//     );
+
+//     if (furniListItem) {
+//       window.scrollBy({
+//         left: 0,
+//         top: furniListItem.getBoundingClientRect().height,
+//         behavior: 'smooth',
+//       });
+//     }
+
+//     hideLoader();
+//   } catch (error) {
+//     showError(error);
+//   }
+// }
+
+async function loadPages(page) {
   furnitureListContainer.insertAdjacentElement('beforeend', loader);
   showLoader();
 
-  itemsPage++;
-  const categoryId = localStorage.getItem(STORAGE_KEY);
-
   try {
-    const { data } = await axios(`/furnitures`, {
-      params: {
-        page: itemsPage,
-        limit,
-        category: categoryId,
-      },
+    const { data } = await axios('/furnitures', {
+      params: { page: itemsPage, limit, category: categoryId },
     });
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    console.log(totalPages);
+    renderPaginationPagesList(totalPages);
 
-    itemsPage = Number(data.page);
-
-    if (itemsPage < totalPages) {
-      furnitureListContainer.insertAdjacentHTML(
-        'beforeend',
-        renderFurnitureList(data.furnitures)
-      );
-      loadMoreFurniBtn.hidden = false;
-    } else {
-      showInfo('В даній категорії закінчилися товари');
-      loadMoreFurniBtn.hidden = true;
-    }
-
-    // плавний скролл
-    const furniListItem = furnitureListContainer.querySelector(
-      '.furniture-list-item'
-    );
-
-    if (furniListItem) {
-      window.scrollBy({
-        left: 0,
-        top: furniListItem.getBoundingClientRect().height,
-        behavior: 'smooth',
-      });
-    }
-
-    hideLoader();
+    furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
   } catch (error) {
     showError(error);
+  } finally {
+    hideLoader();
   }
 }
