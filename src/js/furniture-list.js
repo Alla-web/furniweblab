@@ -450,6 +450,14 @@ document
       //показуємо/ховаємо кнопки гортання сторінок пагінації
       const currentBtn = event.target;
       if (!currentBtn || currentBtn.disabled) return;
+
+      // плавний скролл до початку контейнера з меблями
+      if (furnitureListContainer) {
+        furnitureListContainer.scrollIntoView({
+          block: 'start', // до початку блока піднімаємось
+          behavior: 'smooth',
+        });
+      }
     } catch (error) {
       showError(error);
     } finally {
