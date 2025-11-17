@@ -81,7 +81,33 @@
 
     <div id="furniture" class="furniture-pagination-container">
       <ul class="furniture-list"></ul>
-      <ul class="pagination-container" hidden></ul>
+
+      <ul class="pagination-container" hidden>
+        <li class="swipe-btn back">
+          <button
+            class="pagination-btn pagination-back"
+            aria-label="Back"
+            data-nav="minus"
+            disabled
+          >
+            <svg class="scroll-svg" width="48" height="48" aria-hidden="true">
+              <use href="/img/sprite.svg#left-arrow-alt"></use>
+            </svg>
+          </button>
+        </li>
+
+        <li class="swipe-btn next">
+          <button
+            class="pagination-btn pagination-next"
+            aria-label="Next"
+            data-nav="plus"
+          >
+            <svg class="scroll-svg" width="48" height="48" aria-hidden="true">
+              <use href="../img/sprite.svg#right-arrow-alt"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
     </div>
 
     <button

@@ -6,7 +6,9 @@ import 'izitoast/dist/css/iziToast.min.css';
 //отримуємо список категорій:
 
 axios.defaults.baseURL = 'https://furniture-store-v2.b.goit.study/api';
+
 const STORAGE_KEY = 'pickedCategoryId';
+const PREVIOUS_PAGE_KEY = 'previous_page';
 
 function showError(error) {
   iziToast.error({
@@ -41,17 +43,29 @@ function hideLoader() {
 }
 
 localStorage.removeItem(STORAGE_KEY);
+localStorage.removeItem(PREVIOUS_PAGE_KEY);
 
 let itemsPage = 1;
 let totalItems = 0;
 let totalPages = 0;
 const limit = 8;
+let maxPage = 1;
+const screenWidth = window.innerWidth;
 
 const categoriesBoxes = document.querySelectorAll('.category-card');
 const furnitureListContainer = document.querySelector('.furniture-list');
 const categoryContainer = document.querySelector('.category-container');
 const paginationContainer = document.querySelector('.pagination-container');
 const loadMoreFurniBtn = document.querySelector('.load-more-button');
+const swipeBackLi = paginationContainer.querySelector('.back');
+const swipeNextLi = paginationContainer.querySelector('.next');
+const backBtn = paginationContainer.querySelector('.pagination-back');
+const nextBtn = paginationContainer.querySelector('.pagination-next');
+
+function updateArrows() {
+  backBtn.disabled = itemsPage <= 1;
+  nextBtn.disabled = itemsPage >= maxPage;
+}
 
 async function fetchCategories() {
   try {
@@ -81,7 +95,7 @@ async function renderCategories(categoriesBoxes) {
 
 renderCategories(categoriesBoxes);
 
-// підгружаємо першу партію товарів та пагінацію сторінок
+// підгружаємо першу партію товарів та пагінацію сторінок:
 
 async function furnitureFirstLoading() {
   showLoader();
@@ -96,15 +110,20 @@ async function furnitureFirstLoading() {
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    // itemsPage = data.page;
+    maxPage = totalPages;
 
     furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
-    // loadMoreFurniBtn.hidden = itemsPage >= totalPages;
-    console.log('paginationContainer: ', paginationContainer);
+    // пагінація, залежно від розмірів екрану
+    if (screenWidth < 768) {
+      paginationContainer.hidden = true;
+      loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+    } else {
+      paginationContainer.hidden = false;
+      renderPaginationPagesList(totalPages);
+    }
 
-    paginationContainer.hidden = false;
-    renderPaginationPagesList(totalPages);
+    updateArrows();
   } catch (error) {
     showError(error);
   } finally {
@@ -113,6 +132,8 @@ async function furnitureFirstLoading() {
 }
 
 furnitureFirstLoading();
+
+updateArrows();
 
 //ловимо клік по категорії, грузимо товари з обраної категорії:
 categoryContainer.addEventListener('click', onCategoryClick);
@@ -154,6 +175,7 @@ async function onCategoryClick(event) {
   }
 
   itemsPage = 1;
+
   furnitureListContainer.innerHTML = '';
 
   if (pickedCategoryId === undefined || pickedCategoryId === null) {
@@ -173,11 +195,19 @@ async function onCategoryClick(event) {
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    // itemsPage = data.page;
+    maxPage = totalPages;
 
     furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
-    // loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+    // різна пагінація, залежно від розмірів екрану:
+    if (screenWidth < 768) {
+      paginationContainer.hidden = true;
+      loadMoreFurniBtn.hidden = itemsPage >= totalPages;
+    } else {
+      paginationContainer.hidden = false;
+      renderPaginationPagesList(totalPages);
+      updateArrows();
+    }
   } catch (error) {
     showError(error);
   } finally {
@@ -217,94 +247,212 @@ function renderFurnitureList(furnitureList) {
     .join('');
 }
 
-function renderPaginationPagesList(pagesCount, current = 1) {
-  paginationContainer.innerHTML = '';
+// пагінація гортанням стрілочок:
 
-  for (let i = 1; i <= pagesCount; i++) {
+function renderPaginationPagesList(pagesCount, current = 1) {
+  paginationContainer.hidden = true;
+
+  paginationContainer.innerHTML = '';
+  paginationContainer.append(swipeBackLi, swipeNextLi);
+
+  const paginationItems = getPaginationItems(pagesCount, current);
+
+  paginationItems.forEach(item => {
     const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = i;
-    btn.dataset.page = i;
-    if (i === current) btn.classList.add('active');
-    li.append(btn);
-    paginationContainer.append(li);
-  }
+    li.classList.add('page');
+
+    if (item === '...') {
+      const span = document.createElement('span');
+      span.textContent = '...';
+      span.classList.add('pagination-ellipsis');
+      li.append(span);
+    } else {
+      const btn = document.createElement('button');
+
+      btn.classList.add('pagination-item');
+      btn.type = 'button';
+      btn.textContent = item;
+      btn.dataset.page = item;
+      if (item === current) btn.classList.add('isActive');
+
+      li.classList.add('page');
+      li.append(btn);
+    }
+
+    paginationContainer.lastElementChild.insertAdjacentElement(
+      'beforebegin',
+      li
+    );
+  });
+
+  paginationContainer.hidden = pagesCount <= 1;
 }
 
-// // пагінація по натисканню на кнопку
+// функція, що робить масив сторінок для пагінації:
 
-// loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
+function getPaginationItems(totalPages, currentPage, delta = 1) {
+  // delta - скільки сторінок зліва/справа від поточної показувати
+  const pages = [];
+  const left = currentPage - delta;
+  const right = currentPage + delta;
 
-// async function onLoadMoreFfurniBtnClick(event) {
-//   furnitureListContainer.insertAdjacentElement('beforeend', loader);
-//   showLoader();
+  let dotsAdded = false;
 
-//   itemsPage++;
-//   const categoryId = localStorage.getItem(STORAGE_KEY);
+  for (let i = 1; i <= totalPages; i++) {
+    const isEdge = i === 1 || i === totalPages;
+    const isNearCurrent = i >= left && i <= right;
 
-//   try {
-//     const { data } = await axios(`/furnitures`, {
-//       params: {
-//         page: itemsPage,
-//         limit,
-//         category: categoryId,
-//       },
-//     });
+    if (isEdge || isNearCurrent) {
+      pages.push(i);
+      dotsAdded = false; // після цифри знову вставити "..."
+    } else if (!dotsAdded) {
+      pages.push('...');
+      dotsAdded = true; // вставили крапки один раз на цей проміжок
+    }
+  }
 
-//     totalItems = data.totalItems;
-//     totalPages = Math.ceil(totalItems / limit);
-//     console.log(totalPages);
+  return pages;
+}
 
-//     itemsPage = Number(data.page);
+// пагінація по натисканню на кнопку:
 
-//     if (itemsPage < totalPages) {
-//       furnitureListContainer.insertAdjacentHTML(
-//         'beforeend',
-//         renderFurnitureList(data.furnitures)
-//       );
-//       loadMoreFurniBtn.hidden = false;
-//     } else {
-//       showInfo('В даній категорії закінчилися товари');
-//       loadMoreFurniBtn.hidden = true;
-//     }
+loadMoreFurniBtn.addEventListener('click', onLoadMoreFfurniBtnClick);
 
-//     // плавний скролл
-//     const furniListItem = furnitureListContainer.querySelector(
-//       '.furniture-list-item'
-//     );
-
-//     if (furniListItem) {
-//       window.scrollBy({
-//         left: 0,
-//         top: furniListItem.getBoundingClientRect().height,
-//         behavior: 'smooth',
-//       });
-//     }
-
-//     hideLoader();
-//   } catch (error) {
-//     showError(error);
-//   }
-// }
-
-async function loadPages(page) {
+async function onLoadMoreFfurniBtnClick(event) {
   furnitureListContainer.insertAdjacentElement('beforeend', loader);
   showLoader();
 
+  itemsPage++;
+  const categoryId = localStorage.getItem(STORAGE_KEY);
+
   try {
-    const { data } = await axios('/furnitures', {
-      params: { page: itemsPage, limit, category: categoryId },
+    const { data } = await axios(`/furnitures`, {
+      params: {
+        page: itemsPage,
+        limit,
+        category: categoryId,
+      },
     });
 
     totalItems = data.totalItems;
     totalPages = Math.ceil(totalItems / limit);
-    renderPaginationPagesList(totalPages);
+    maxPage = totalPages;
 
-    furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
+    itemsPage = Number(data.page);
+
+    if (itemsPage < totalPages) {
+      furnitureListContainer.insertAdjacentHTML(
+        'beforeend',
+        renderFurnitureList(data.furnitures)
+      );
+      loadMoreFurniBtn.hidden = false;
+    } else {
+      showInfo('В даній категорії закінчилися товари');
+      loadMoreFurniBtn.hidden = true;
+    }
+
+    // плавний скролл
+    const furniListItem = furnitureListContainer.querySelector(
+      '.furniture-list-item'
+    );
+
+    if (furniListItem) {
+      window.scrollBy({
+        left: 0,
+        top: furniListItem.getBoundingClientRect().height,
+        behavior: 'smooth',
+      });
+    }
+
+    hideLoader();
   } catch (error) {
     showError(error);
-  } finally {
-    hideLoader();
   }
 }
+
+//лоадимо при натисканні на кнопки пагінації (вперед/назад)
+document
+  .querySelector('.pagination-container')
+  .addEventListener('click', async event => {
+    const pageBtn = event.target.closest('[data-page]');
+    const navBtn = event.target.closest('[data-nav]');
+
+    // клік не по пагінації
+    if (!pageBtn && !navBtn) return;
+
+    //клік по заблокованій кнопці
+    const currentBtn = pageBtn || navBtn;
+    if (currentBtn.disabled) return;
+
+    // furnitureListContainer.insertAdjacentElement('beforeend', loader);
+    // furnitureListContainer.innerHTML = showLoader();
+    showLoader();
+
+    // клік по номеру сторінки
+    if (pageBtn) {
+      itemsPage = Number(pageBtn.dataset.page);
+      renderPaginationPagesList(totalPages, itemsPage);
+      updateArrows();
+      pageBtn.blur(); // зняти фокус
+    }
+
+    // клік по кнопках гортання вперед/назад
+    // maxPage = paginationContainer.children.length - 2;
+
+    if (navBtn) {
+      if (navBtn.dataset.nav === 'minus' && itemsPage > 1) {
+        itemsPage--;
+      }
+
+      if (navBtn.dataset.nav === 'plus' && itemsPage < maxPage) {
+        itemsPage++;
+      }
+
+      // const prevActive = paginationContainer.querySelector('.isActive');
+      // if (prevActive) {
+      //   prevActive.classList.remove('isActive');
+      // }
+
+      // const newActive = paginationContainer.querySelector(
+      //   `[data-page="${itemsPage}"]`
+      // );
+
+      // newActive.classList.add('isActive');
+
+      // navBtn.blur(); // зняти фокус
+
+      // updateArrows();
+    }
+
+    renderPaginationPagesList(totalPages, itemsPage);
+    updateArrows();
+
+    currentBtn.blur();
+
+    if (!itemsPage || Number.isNaN(itemsPage)) {
+      showInfo('Виберіть будь-ласка сторінку для заванатаження товарів');
+      return;
+    }
+
+    const categoryId = localStorage.getItem(STORAGE_KEY);
+
+    try {
+      const { data } = await axios('/furnitures', {
+        params: {
+          page: itemsPage,
+          limit,
+          category: categoryId,
+        },
+      });
+
+      furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
+
+      //показуємо/ховаємо кнопки гортання сторінок пагінації
+      const currentBtn = event.target;
+      if (!currentBtn || currentBtn.disabled) return;
+    } catch (error) {
+      showError(error);
+    } finally {
+      hideLoader();
+    }
+  });

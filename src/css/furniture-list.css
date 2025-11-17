@@ -207,7 +207,7 @@
 
 /* furniture-pagination-container */
 
-.furniture-pagination-container {
+.our-furniture .furniture-pagination-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -283,23 +283,93 @@
 /* pagination */
 
 .pagination-container {
-  margin-top: 32px;
+  margin: 32px auto 0;
 
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pagination-container[hidden] {
+  display: none;
+}
+
+.swipe-btn .pagination-btn .scroll-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgb(161, 160, 160);
+  border-radius: 100px;
+  padding: 12px;
+
+  background-color: #f2f2f2;
+}
+
+.swipe-btn .pagination-btn {
+  background: transparent; /* або background-color: transparent; */
+  border: none;
+  padding: 0;
+}
+
+.swipe-btn .pagination-btn:hover .scroll-svg,
+.swipe-btn .pagination-btn:active .scroll-svg {
+  background: #6b0609;
+  fill: #ffff;
+  outline: none;
+}
+
+.swipe-btn .pagination-btn[disabled],
+.swipe-btn .pagination-btn[disabled]:hover,
+.swipe-btn .pagination-btn[disabled]:active {
+  cursor: default;
+}
+
+.swipe-btn .pagination-btn[disabled] .scroll-svg,
+.swipe-btn .pagination-btn[disabled]:hover .scroll-svg,
+.swipe-btn .pagination-btn[disabled]:active .scroll-svg {
+  fill: rgb(161, 160, 160);
+}
+
+.swipe-btn .pagination-btn[disabled] {
+  pointer-events: none;
 }
 
 .pagination-container .pagination-item {
-  width: 25px;
-  height: 25px;
-  background-color: gray;
-  border-radius: 50%;
+  width: 56px;
+  height: 46px;
+  background: none;
+  border-radius: 100px;
+  padding: 10px 24px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.pagination-container .pagination-item:hover,
+.pagination-container .pagination-item:active {
+  background-color: #6b0609;
+  color: #ffff;
+  outline: none;
+}
+
+.pagination-container button:focus,
+.pagination-container button:focus-visible {
+  outline: none;
+}
+
+.pagination-item.isActive {
+  background-color: #6b0609;
+  color: #ffff;
+  outline: none;
 }
 
 @media only screen and (min-width: 768px) {
