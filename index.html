@@ -18,7 +18,7 @@
     <script type="module" crossorigin src="/furniweblab/index.js"></script>
     <link rel="modulepreload" crossorigin href="/furniweblab/assets/vendor-DY_idrNt.js">
     <link rel="stylesheet" crossorigin href="/furniweblab/assets/vendor-D41gWVJh.css">
-    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-HAwr01BW.css">
+    <link rel="stylesheet" crossorigin href="/furniweblab/assets/index-Co1F_Sx7.css">
   </head>
   <body>
     <header class="page-header">
@@ -206,7 +206,36 @@
       </button>
     </div>
 
-    <ul id="furniture" class="furniture-list"></ul>
+    <div id="furniture" class="furniture-pagination-container">
+      <ul class="furniture-list"></ul>
+
+      <ul class="pagination-container" hidden>
+        <li class="swipe-btn back">
+          <button
+            class="pagination-btn pagination-back"
+            aria-label="Back"
+            data-nav="minus"
+            disabled
+          >
+            <svg class="scroll-svg" width="48" height="48" aria-hidden="true">
+              <use href="/furniweblab/assets/sprite-CA5GGzUd.svg#left-arrow-alt"></use>
+            </svg>
+          </button>
+        </li>
+
+        <li class="swipe-btn next">
+          <button
+            class="pagination-btn pagination-next"
+            aria-label="Next"
+            data-nav="plus"
+          >
+            <svg class="scroll-svg" width="48" height="48" aria-hidden="true">
+              <use href="../img/sprite.svg#right-arrow-alt"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
 
     <button
       id="load-more-button"
