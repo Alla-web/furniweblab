@@ -66,7 +66,12 @@
   background-repeat: no-repeat;
   overflow: hidden;
 
-  background-image: linear-gradient(to bottom, rgba(2, 2, 2, 0.2), rgba(2, 2, 2, 0.2)), var(--bg);
+  background-image: linear-gradient(
+      to bottom,
+      rgba(2, 2, 2, 0.2),
+      rgba(2, 2, 2, 0.2)
+    ),
+    var(--bg);
 }
 
 .category-title {
@@ -80,101 +85,134 @@
 }
 
 .category-card.all {
-  --bg: image-set(url('/img/furniture-list/allPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/allPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/allPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/allPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/allPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/allPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/allPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/allPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.hallway {
-  --bg: image-set(url('/img/furniture-list/hallwayPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/hallwayPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/hallwayPhoto@x1.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/hallwayPhoto@x2.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/hallwayPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/hallwayPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/hallwayPhoto@x1.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/hallwayPhoto@x2.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.kitchens {
-  --bg: image-set(url('/img/furniture-list/kitchensPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/kitchensPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/kitchensPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/kitchensPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/kitchensPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/kitchensPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/kitchensPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/kitchensPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.garden {
-  --bg: image-set(url('/img/furniture-list/gardenPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/gardenPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/gardenPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/gardenPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/gardenPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/gardenPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/gardenPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/gardenPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.tables {
-  --bg: image-set(url('/img/furniture-list/tablesPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/tablesPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/tablesPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/tablesPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/tablesPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/tablesPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/tablesPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/tablesPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.soft {
-  --bg: image-set(url('/img/furniture-list/softPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/softPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/softPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/softPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/softPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/softPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/softPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/softPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.children {
-  --bg: image-set(url('/img/furniture-list/childrenPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/childrenPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/childrenPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/childrenPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/childrenPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/childrenPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/childrenPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/childrenPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.decor {
-  --bg: image-set(url('/img/furniture-list/decorPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/decorPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/decorPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/decorPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/decorPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/decorPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/decorPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/decorPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.bathroom {
-  --bg: image-set(url('/img/furniture-list/bathroomPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/bathroomPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/bathroomPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/bathroomPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/bathroomPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/bathroomPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/bathroomPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/bathroomPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.office {
-  --bg: image-set(url('/img/furniture-list/officePhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/officePhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/officePhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/officePhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/officePhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/officePhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/officePhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/officePhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.wardrobe {
-  --bg: image-set(url('/img/furniture-list/wardrobePhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/wardrobePhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/wardrobePhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/wardrobePhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/wardrobePhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/wardrobePhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/wardrobePhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/wardrobePhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.bads {
-  --bg: image-set(url('/img/furniture-list/badsPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/badsPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/badsPhoto@x1.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/badsPhoto@x2.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/badsPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/badsPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/badsPhoto@x1.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/badsPhoto@x2.jpg') type('image/jpeg') 1x
+  );
 }
 
 .category-card.hairs {
-  --bg: image-set(url('/img/furniture-list/hairsPhoto@x2.webp') type('image/webp') 2x,
-      url('/img/furniture-list/hairsPhoto@x1.webp') type('image/webp') 1x,
-      url('/img/furniture-list/hairsPhoto@x2.jpg') type('image/jpeg') 2x,
-      url('/img/furniture-list/hairsPhoto@x1.jpg') type('image/jpeg') 1x);
+  --bg: image-set(
+    url('/img/furniture-list/hairsPhoto@x2.webp') type('image/webp') 2x,
+    url('/img/furniture-list/hairsPhoto@x1.webp') type('image/webp') 1x,
+    url('/img/furniture-list/hairsPhoto@x2.jpg') type('image/jpeg') 2x,
+    url('/img/furniture-list/hairsPhoto@x1.jpg') type('image/jpeg') 1x
+  );
 }
 
 .load-more-button {
   margin: 32px auto;
 }
 
-/* furniture-list */
+/* furniture-pagination-container */
+
+.our-furniture .furniture-pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .furniture-list {
   display: flex;
@@ -240,6 +278,98 @@
 
 .details-button:hover {
   background-color: #cbc9c9;
+}
+
+/* pagination */
+
+.pagination-container {
+  margin: 32px auto 0;
+
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pagination-container[hidden] {
+  display: none;
+}
+
+.swipe-btn .pagination-btn .scroll-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgb(161, 160, 160);
+  border-radius: 100px;
+  padding: 12px;
+
+  background-color: #f2f2f2;
+}
+
+.swipe-btn .pagination-btn {
+  background: transparent; /* або background-color: transparent; */
+  border: none;
+  padding: 0;
+}
+
+.swipe-btn .pagination-btn:hover .scroll-svg,
+.swipe-btn .pagination-btn:active .scroll-svg {
+  background: #6b0609;
+  fill: #ffff;
+  outline: none;
+}
+
+.swipe-btn .pagination-btn[disabled],
+.swipe-btn .pagination-btn[disabled]:hover,
+.swipe-btn .pagination-btn[disabled]:active {
+  cursor: default;
+}
+
+.swipe-btn .pagination-btn[disabled] .scroll-svg,
+.swipe-btn .pagination-btn[disabled]:hover .scroll-svg,
+.swipe-btn .pagination-btn[disabled]:active .scroll-svg {
+  fill: rgb(161, 160, 160);
+}
+
+.swipe-btn .pagination-btn[disabled] {
+  pointer-events: none;
+}
+
+.pagination-container .pagination-item {
+  width: 56px;
+  height: 46px;
+  background: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.pagination-container .pagination-item:hover,
+.pagination-container .pagination-item:active {
+  background-color: #6b0609;
+  color: #ffff;
+  outline: none;
+}
+
+.pagination-container button:focus,
+.pagination-container button:focus-visible {
+  outline: none;
+}
+
+.pagination-item.isActive {
+  background-color: #6b0609;
+  color: #ffff;
+  outline: none;
 }
 
 @media only screen and (min-width: 768px) {
