@@ -269,7 +269,7 @@ function renderPaginationPagesList(pagesCount, current = 1) {
     } else {
       const btn = document.createElement('button');
 
-      btn.classList.add('pagination-item');
+      btn.classList.add('pagination-item', 'pag-buttons');
       btn.type = 'button';
       btn.textContent = item;
       btn.dataset.page = item;
@@ -384,20 +384,13 @@ document
     const currentBtn = pageBtn || navBtn;
     if (currentBtn.disabled) return;
 
-    // furnitureListContainer.insertAdjacentElement('beforeend', loader);
-    // furnitureListContainer.innerHTML = showLoader();
     showLoader();
+    disablePaginationButtons();
 
     // клік по номеру сторінки
     if (pageBtn) {
       itemsPage = Number(pageBtn.dataset.page);
-      renderPaginationPagesList(totalPages, itemsPage);
-      updateArrows();
-      pageBtn.blur(); // зняти фокус
     }
-
-    // клік по кнопках гортання вперед/назад
-    // maxPage = paginationContainer.children.length - 2;
 
     if (navBtn) {
       if (navBtn.dataset.nav === 'minus' && itemsPage > 1) {
@@ -407,30 +400,14 @@ document
       if (navBtn.dataset.nav === 'plus' && itemsPage < maxPage) {
         itemsPage++;
       }
-
-      // const prevActive = paginationContainer.querySelector('.isActive');
-      // if (prevActive) {
-      //   prevActive.classList.remove('isActive');
-      // }
-
-      // const newActive = paginationContainer.querySelector(
-      //   `[data-page="${itemsPage}"]`
-      // );
-
-      // newActive.classList.add('isActive');
-
-      // navBtn.blur(); // зняти фокус
-
-      // updateArrows();
     }
-
-    renderPaginationPagesList(totalPages, itemsPage);
-    updateArrows();
 
     currentBtn.blur();
 
     if (!itemsPage || Number.isNaN(itemsPage)) {
       showInfo('Виберіть будь-ласка сторінку для заванатаження товарів');
+      enablePaginationButtons();
+      hideLoader();
       return;
     }
 
@@ -447,6 +424,14 @@ document
 
       furnitureListContainer.innerHTML = renderFurnitureList(data.furnitures);
 
+      // Тільки після успішного запиту оновлюємо пагінацію
+      totalItems = data.totalItems;
+      totalPages = Math.ceil(totalItems / limit);
+      maxPage = totalPages;
+
+      renderPaginationPagesList(totalPages, itemsPage);
+      updateArrows();
+
       //показуємо/ховаємо кнопки гортання сторінок пагінації
       const currentBtn = event.target;
       if (!currentBtn || currentBtn.disabled) return;
@@ -461,6 +446,20 @@ document
     } catch (error) {
       showError(error);
     } finally {
+      enablePaginationButtons();
       hideLoader();
     }
   });
+
+function disablePaginationButtons() {
+  paginationContainer
+    .querySelectorAll('.pag-buttons')
+    .forEach(button => (button.disabled = true));
+}
+
+function enablePaginationButtons() {
+  paginationContainer
+    .querySelectorAll('.pag-buttons')
+    .forEach(button => (button.disabled = false));
+  updateArrows();
+}
